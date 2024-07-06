@@ -39,7 +39,7 @@
                     <a class="nav-link" href="progress_tracker.php">Progress Tracker</a>
                 </li>
                 <li class="nav-item tracker">
-                    <a class="nav-link" href="progress_log.php">Log Progress</a>
+                    <a class="nav-link" href="progress_entry.php">Add Progress</a>
                 </li>
                 
             </ul>
