@@ -62,6 +62,17 @@ include("public/header.php")
                     </div>
                     <div class="invalid-feedback">Please select your gender.</div>
                 </div>
+                <!-- Added Height and Weigh inputs-->
+                <div class="form-group">
+                    <label for="height">Height (cm):</label>
+                    <input type="number" class="form-control" id="height" name="height" required>
+                </div>
+                <div class="form-group">
+                    <label for="weight">Weight (kg):</label>
+                    <input type="number" class="form-control" id="weight" name="weight" required>
+                </div>
+
+
                 <button type="submit" class="btn btn-success btn-calculate">Register</button>
             </form>
         </div>
