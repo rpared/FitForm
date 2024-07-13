@@ -1,5 +1,5 @@
 <?php
-include("public/user_header.php")
+include("../partials/user_header.php")
 ?>
 
 <main>
@@ -45,5 +45,5 @@ include("public/user_header.php")
 
 
 <?php
-include("public/footer.php")
+include("../partials/footer.php")
 ?>

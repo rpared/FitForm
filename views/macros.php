@@ -1,5 +1,5 @@
 <?php
-include("public/header.php")
+include("partials/header.php")
 ?>
 
 <main>
@@ -70,5 +70,5 @@ include("public/header.php")
 
 
 <?php
-include("public/footer.php")
+include("partials/footer.php")
 ?>

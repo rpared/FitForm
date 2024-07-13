@@ -1,5 +1,5 @@
 <?php
-include("public/header.php")
+include("../views/partials/header.php")
 ?>
 
     <section class="banner">
@@ -65,6 +65,6 @@ include("public/header.php")
 
     
 <?php
-include("public/footer.php")
+include("../views/partials/footer.php")
 ?>
 

@@ -1,5 +1,5 @@
 <?php
-include("public/header.php")
+include("partials/header.php")
 ?>
  <main>
         <div class="container mt-5">
@@ -7,7 +7,7 @@ include("public/header.php")
                 <h2 class="text-center">About Us</h2>
                 <div class="row mt-4">
                     <div class="col-md-6">
-                        <img src="public/images/aboutus_pic.png" class="img-fluid" alt="About Us Image">
+                        <img src="../public/images/aboutus_pic.png" class="img-fluid" alt="About Us Image">
                     </div>
                     <div class="col-md-6">
                         <h3>Our Mission</h3>
@@ -36,5 +36,5 @@ include("public/header.php")
     </main>
 
 <?php
-include("public/footer.php")
+include("partials/footer.php")
 ?>
