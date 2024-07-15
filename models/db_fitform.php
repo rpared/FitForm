@@ -9,7 +9,7 @@
 // AZURE DB
 $dsn = 'mysql:host=rogersql.mysql.database.azure.com;dbname=db_fitform;sslmode=require';
 $username = 'mysql';
-$password = 'guess';
+$password = 'ask db admin';
 $ssl_cert = './SSLcert/MicrosoftRSARootCertificateAuthority2017.crt';
 
 $options = array(
