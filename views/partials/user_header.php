@@ -1,3 +1,18 @@
+<?php
+// Start the session if it has not been started yet
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Ensure the user is logged in
+if (!isset($_SESSION['user_id'])) {
+    die("User is not logged in.");
+}
+
+$user_id = $_SESSION['user_id'];
+$first_name = $_SESSION['first_name'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,14 +54,14 @@
                     <a class="nav-link" href="progress_tracker.php">Progress Tracker</a>
                 </li>
                 <li class="nav-item tracker">
-                    <a class="nav-link" href="progress_entry.php">Add Progress</a>
+                    <a class="nav-link" href="add_progress.php">Add Progress</a>
                 </li>
                 
             </ul>
 
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link login" href="../login.php">"user_name"'s Profile</a>
+                    <a class="nav-link login" href="../../edit_profile.php"><?php echo $first_name. "'s Profile";?> </a>
                 </li>
             </ul>
         </div>
