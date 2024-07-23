@@ -61,7 +61,10 @@ $first_name = $_SESSION['first_name'];
 
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link login" href="../../edit_profile.php"><?php echo $first_name. "'s Profile";?> </a>
+                    <a class="nav-link login" href="../users/user_home.php"><?php echo $first_name. "'s Profile";?> </a>               
+                </li>
+                <li class="nav-item tracker">
+                    <a class="nav-link" href="../../controllers/logout.php">Logout</a>
                 </li>
             </ul>
         </div>

@@ -95,7 +95,7 @@ class Repository {
             return null; // or handle the case where no user is found
         }
     }
-
+    // Get User by credential, either username or email
     public function getUserByCredential($credential) {
         $query = 'SELECT * FROM User WHERE email = :credential OR username = :credential';
         $statement = $this->db->prepare($query);
@@ -107,19 +107,16 @@ class Repository {
     }
 
     // Get profile by user_id
+   
     public function getUserProfile($user_id) {
         $query = 'SELECT * FROM Profile WHERE user_id = :user_id';
         $statement = $this->db->prepare($query);
         $statement->bindValue(':user_id', $user_id, PDO::PARAM_INT);
         $statement->execute();
-        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        $profile = $statement->fetch(PDO::FETCH_ASSOC);
         $statement->closeCursor();
-        
-        if ($result) {
-            return $result;
-        } else {
-            throw new Exception("Profile not found for user ID: $user_id");
-        }
+    
+        return $profile ? $profile : null; // Return null if no profile is found this is important to redirect if it does not exist
     }
 
 
@@ -139,10 +136,52 @@ public function createProfile($user_id, Profile $new_profile) {
         $statement->execute();
         $statement->closeCursor();
         echo "<b>Successful Profile Creation 😁.</b> Profile has been created.<br>";
+        return true; // Ensure the function returns true on success to redirect to user_home.php
     } catch (PDOException $e) {
         throw new Exception("Error adding profile: " . $e->getMessage());
     }
 }
+
+// Add Progress - Inserts rows into Statistics table in the db
+public function addProgress($user_id, $progressData) {
+    try {
+        $query = 'INSERT INTO Statistics (user_id, date, weight, calorie_intake, protein, carbs, fats) 
+                  VALUES (:user_id, :date, :weight, :calorie_intake, :protein, :carbs, :fats)';
+        $statement = $this->db->prepare($query);
+        $statement->bindValue(':user_id', $user_id);
+        $statement->bindValue(':date', $progressData['date']);
+        $statement->bindValue(':weight', $progressData['weight']);
+        $statement->bindValue(':calorie_intake', $progressData['calorie_intake'], PDO::PARAM_INT); // PARAM_INT because query should not attempt to insert an empty string into a DECIMAL column.
+        $statement->bindValue(':protein', $progressData['protein'], PDO::PARAM_INT);
+        $statement->bindValue(':carbs', $progressData['carbs'], PDO::PARAM_INT);
+        $statement->bindValue(':fats', $progressData['fats'], PDO::PARAM_INT);
+        $statement->execute();
+        $statement->closeCursor();
+        return true;
+    } catch (PDOException $e) {
+        throw new Exception("Error adding progress info: " . $e->getMessage());
+    }
+}
+
+    // Get User Statistics
+    public function getUserStatistics($user_id) {
+        $query = 'SELECT * FROM Statistics WHERE user_id = :user_id';
+        $statement = $this->db->prepare($query);
+        
+        // Bind the :user_id parameter to the actual user_id value It was not working without this!
+        $statement->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        
+        $statement->execute();
+        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+        $statement->closeCursor();
+        
+        return $results;
+    }
+
+
+
+
+
 }
 
 

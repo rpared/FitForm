@@ -28,11 +28,11 @@ CREATE TABLE Statistics (
   stat_id INT NOT NULL AUTO_INCREMENT,  -- Auto-incrementing primary key, must be autofilled
   user_id INT NOT NULL,                 -- Foreign key referencing User.user_id, must be autofilled for the user
   date DATE NOT NULL,                   -- Date of the statistic, must be autofilled
-  weight DECIMAL(5, 2) NOT NULL,        -- Weight KG in decimal format
-  calorie_intake INT (5),           		-- Calorie intake, not mandatory
-  protein DECIMAL(5, 2), 			 -- Macro-nutrient: Protein (grams), not mandatory
-  carbs DECIMAL(5, 2),  			 -- Macro-nutrient: Carbs (grams), not mandatory
-  fats DECIMAL(5, 2),    			 -- Macro-nutrient: Fats (grams), must be automatically calculated to fit this: calorie_intake = carbs*4 + proteins*4 + fats*9
+  weight DECIMAL(6, 2) NOT NULL,        -- Weight KG in decimal format
+  calorie_intake INT (5) NULL,           		-- Calorie intake, not mandatory
+  protein DECIMAL(5, 2) NULL, 			 -- Macro-nutrient: Protein (grams), not mandatory
+  carbs DECIMAL(5, 2) NULL,  			 -- Macro-nutrient: Carbs (grams), not mandatory
+  fats DECIMAL(5, 2) NULL,    			 -- Macro-nutrient: Fats (grams), must be automatically calculated to fit this: calorie_intake = carbs*4 + proteins*4 + fats*9
   PRIMARY KEY (stat_id),                 -- Define stat_id as the primary key
   FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE  -- Foreign key constraint referencing User table, with cascade delete on User record deletion
 );

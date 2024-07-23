@@ -1,6 +1,15 @@
 <?php
 include("../partials/user_header.php")
 ?>
+<div class="sidebar">
+    <a href="progress_tracker.php">Progress Tracker</a>
+    <a href="add_progress.php">Add Progress</a>
+    <a href="edit_profile.php">Edit Objective</a>
+    <a href="edit_profile.php">Edit Profile</a>
+    <a href="delete_account.php">Edit Account</a>
+    <a href="delete_account.php">Delete Account</a>
+    <a href="../../controllers/logout.php">Logout</a>
+</div>
 
 <main>
     <div class="container mt-5">

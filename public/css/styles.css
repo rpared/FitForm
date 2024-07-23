@@ -6,6 +6,11 @@ main{
     max-width: 800px;
 }
 
+.navbar{
+    z-index: 3; /* Ensure navbar is above the sidebar and other content */
+    position: relative; /* Ensure z-index is applied */
+}
+
 .bg-light{
     margin: 0;
    padding: 10px 30px 10px;
@@ -98,15 +103,50 @@ h2{
     opacity: 0.7;
 }
 
+
 footer{
     width: 100%;
     background-color: #dbdbdb;
     text-align: center;
     color: #434343;
-    margin: 30px auto 0;
-    padding: 10px;
+    margin: 30px 0;
+    padding: 10px 0 10px;
+
 }
 
+/* Users sidebar */
+
+.sidebar {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    top: 95px;
+    left: 0;
+    background-color: #f8f9fa;
+    padding-top: 20px;
+    border-right: 1px solid #ddd;
+    z-index: 1;
+
+}
+.sidebar a {
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #333;
+    display: block;
+}
+.sidebar a:hover {
+    background-color: #5ea23a;
+    color: white;
+}
+.main-content {
+    margin-left: 200px; /* Same as the width of the sidebar */
+
+}
+
+
+
+/* Progress Tracker */
 .progress-tracker {
     border-collapse: separate;
     border-spacing: 15px;

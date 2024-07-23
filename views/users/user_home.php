@@ -21,65 +21,92 @@ try {
     $user = $repository->getUserProfile($user_id);
 
     $user_desired_objective = $user['desired_objective'];
+
+    if($user_desired_objective == "Weight Loss"){
+        $greeting = "Let's crush those extra calories together, <b>" . $first_name . "</b>!";
+    }
+    if($user_desired_objective == "Muscle Gain"){
+        $greeting = "Time to build those muscles, <b>" . $first_name . "</b>! Let's get those gains!";
+    }
+    if($user_desired_objective == "Maintain Weight"){
+        $greeting = "You're doing great, <b>" . $first_name . "</b>! Keep up the fantastic work!";
+    }
+
+
 } catch (Exception $e) {
     $errors[] = "An error occurred: " . $e->getMessage();
 }
 
+// Fetching from the statistics table 
+try {
+    $statistics = $repository->getUserStatistics($user_id); // Ensure user_id to fetch statistics
+} catch (PDOException $e) {
+    $errors[] = "Error connecting to database: " . $e->getMessage();
+}
+
+
 ?>
 
-<main>
-    <br>
-<h3 class="text-center">We are ready exterminate those extra calories <?php echo $first_name ?>! </h3>
+<div class="sidebar">
+    <a href="progress_tracker.php">Progress Tracker</a>
+    <a href="add_progress.php">Add Progress</a>
+    <a href="edit_profile.php">Edit Objective</a>
+    <a href="edit_profile.php">Edit Profile</a>
+    <a href="delete_account.php">Edit Account</a>
+    <a href="delete_account.php">Delete Account</a>
+    <a href="../../controllers/logout.php">Logout</a>
+</div>
 
+<div class="main-content">
+    <main>
+        <br>
+        <h3 class="text-center"><?php echo $greeting; ?>!</h3>
 
-<h5> &rarr; Objective: <?php echo htmlspecialchars($user_desired_objective); ?> </h5>
+        <h5> &rarr; Objective: <?php echo htmlspecialchars($user_desired_objective); ?></h5>
 
-<div class="container mt-5">
-        <div class="form-container mt-4">
-            <h2 class="text-center">Progress Tracker</h2>
-            <p>Your statistics so far:</p>
-            <table class="progress-tracker">
-                <tr>
-                    <th>Date</th>
-                    <th>Weight</th>
-                    <th>Activity Level</th>
-                    <th>Calories</th>
-                    <th>Protein</th>
-                    <th>Carbs</th>
-                    <th>Fats</th>
-                </tr>
-                <tr>
-                    <td>2024-07-06</td>
-                    <td>70 kg</td>
-                    <td>Moderate</td>
-                    <td>2500</td>
-                    <td>150 g</td>
-                    <td>300 g</td>
-                    <td>80 g</td>
-                </tr>
-                <tr>
-                    <td>2024-07-07</td>
-                    <td>69.5 kg</td>
-                    <td>High</td>
-                    <td>NULL</td>
-                    <td>NULL</td>
-                    <td>NULL</td>
-                    <td>NULL</td>
-                </tr>
-            </table>
-
+        <div class="container mt-5">
+            <div class="form-container mt-4">
+                <h2 class="text-center">Progress Tracker</h2>
+                <p>Your statistics so far:</p>
+                <table class="progress-tracker">
+                    <tr>
+                        <th>Date</th>
+                        <th>Weight</th>
+                        <th>Calories</th>
+                        <th>Protein</th>
+                        <th>Carbs</th>
+                        <th>Fats</th>
+                    </tr>
+                    <?php if (!empty($statistics)): ?>
+                        <?php foreach ($statistics as $row): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($row['date']); ?></td>
+                                <td><?php echo htmlspecialchars($row['weight']) . ' kg'; ?></td>
+                                <td><?php echo htmlspecialchars($row['calorie_intake'] ?? 'NULL'); ?></td>
+                                <td><?php echo htmlspecialchars($row['protein'] ?? 'NULL') . ' g'; ?></td>
+                                <td><?php echo htmlspecialchars($row['carbs'] ?? 'NULL') . ' g'; ?></td>
+                                <td><?php echo htmlspecialchars($row['fats'] ?? 'NULL') . ' g'; ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="7">No statistics found.</td>
+                        </tr>
+                    <?php endif; ?>
+                </table>
+            </div>
+            <button class="btn btn-success btn-calculate">
+                <a style="color: white; text-decoration: none;" href="add_progress.php">Add Progress</a>
+            </button>
         </div>
-        <button class="btn btn-success btn-calculate"><a style="color:white; text-decoration:none;" href="add_progress.php">Add Progress</a></button>
-    </div>
-
-
-
-   
-</main>
+    </main>
 
 
 
 
 <?php
+$_SESSION['user_id'] = $user_id;
+$_SESSION['first_name'] = $first_name;
+
 include("../partials/footer.php")
 ?>

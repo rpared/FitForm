@@ -1,7 +1,7 @@
 <?php
 require_once '../models/Repository_class.php';
 require_once '../models/Profile_class.php';
-include("../views/partials/user_header.php");
+include("../views/partials/header.php");
 
 // This check is needed beacuse the user_header.php starts session too
 if (session_status() == PHP_SESSION_NONE) {
