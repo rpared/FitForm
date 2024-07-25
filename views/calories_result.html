@@ -1,0 +1,20 @@
+<div class="container w-50 mt-5">
+    <div class="form-container mt-4">
+        <h2 class="text-center">Your Daily Needs</h2>
+        <div class="results mt-4">
+            <h1 class="cal-result"><?= $caloriesForMaintenance ?> kcal</h1>
+            <p class="h4 text-center"><strong>Calories for Maintenance</strong></p>
+            <div class="additional-info">
+                <p><strong>Calories for Weight Loss:</strong> <?= $caloriesForWeightLoss ?> kcal</p>
+                <p><strong>Calories for Muscle Gain:</strong> <?= $caloriesForMuscleGain ?> kcal</p>
+
+                <p><strong>BMR:</strong> <?= $bmr ?> kcal <br>
+                    <small>Basal Metabolic Rate (minimum to survive with no activity).</small>
+                </p>
+            </div>
+        </div>
+        <div class="disclaimer mt-4 text-muted" style="font-size: 0.9em;">
+            <?= $disclaimer ?>
+        </div>
+    </div>
+</div>

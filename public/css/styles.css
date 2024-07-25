@@ -103,6 +103,29 @@ h2{
     opacity: 0.7;
 }
 
+.cal-result{
+    text-align: center;
+    font-size: 36pt;
+    color: #333;
+    border-radius: 4px;
+    border: 1px solid #5ea23a;
+    margin-bottom: 5px;
+
+}
+.additional-info{
+    margin-top: 20px;
+    background-color: #e0e0e0;
+    padding: 8px;
+    border-radius: 4px;
+    color: #333;
+}
+
+.btn-link{
+    border-radius: 3px;
+    border: 1px solid #5ea23a;
+    color: #434343;
+
+}
 
 footer{
     width: 100%;
