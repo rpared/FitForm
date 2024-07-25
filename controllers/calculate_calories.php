@@ -42,6 +42,7 @@ $bmr = $calculator->calculateBMR();
 $caloriesForMaintenance = $calculator->caloriesForMaintenance();
 $caloriesForWeightLoss = $calculator->caloriesForWeightLoss();
 $caloriesForMuscleGain = $calculator->caloriesForMuscleGain();
+<<<<<<< HEAD
 $disclaimer = $calculator->getDisclaimer();
 
 include("../views/partials/header.php");
@@ -51,3 +52,20 @@ include("../views/calories_result.html");
 
 include("../views/partials/footer.php");
 ?>
+=======
+
+
+include("../views/partials/header.php")
+
+// include("../views/calories_result.html")
+
+echo "BMR: $bmr kcal<br>";
+echo "Calories for Maintenance: $caloriesForMaintenance kcal<br>";
+echo "Calories for Weight Loss: $caloriesForWeightLoss kcal<br>";
+echo "Calories for Muscle Gain: $caloriesForMuscleGain kcal<br><br>";
+echo $calculator->getDisclaimer();
+
+
+include("../views/partials/footer.php")
+?>
+>>>>>>> d1318bdf472437e1fe520b8d0222f5e8d885d874
