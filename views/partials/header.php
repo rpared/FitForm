@@ -24,8 +24,8 @@
                         Calculate
                     </a>
                     <div class="dropdown-menu" aria-labelledby="calculateDropdown">
-                        <a class="dropdown-item" href="../controllers/index.php">Calories</a>
-                        <a class="dropdown-item" href="../views/macros.php">Macros</a>
+                        <a class="dropdown-item" href="../controllers/calculate_calories.php">Calories</a>
+                        <a class="dropdown-item" href="../controllers/calculate_macros.php">Macros</a>
                     </div>
                 </li>
 

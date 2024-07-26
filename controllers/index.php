@@ -9,58 +9,25 @@ include("../views/partials/header.php")
 
     <!-- Main Content -->
 
-    <main>
-    <div class="container mt-5">
-        <div class="form-container mt-4">
-            <h2 class="text-center">Daily Caloric Needs</h2>
-            <form method="post" action="calculate_calories.php">
-                <div class="form-group">
-                    <label for="age">Age:</label>
-                    <select class="form-control" id="age" name="age" required>
-                        <option value="">Select Age</option>
-                        <?php for ($i = 16; $i <= 80; $i++): ?>
-                            <option value="<?= $i ?>"><?= $i ?></option>
-                        <?php endfor; ?>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="gender">Gender:</label>
-                    <div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" id="male" name="gender" value="male" required>
-                            <label class="form-check-label" for="male">Male</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" id="female" name="gender" value="female" required>
-                            <label class="form-check-label" for="female">Female</label>
-                        </div>
-                        <p><em>(If you define yourself as non-binary choose which body composition fits you best)</em></p>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="height">Height (cm):</label>
-                    <input type="number" class="form-control" id="height" name="height" required>
-                </div>
-                <div class="form-group">
-                    <label for="weight">Weight (kg):</label>
-                    <input type="number" class="form-control" id="weight" name="weight" required>
-                </div>
-                <div class="form-group">
-                    <label for="activity">Activity Level:</label>
-                    <select class="form-control" id="activity" name="activity" required>
-                        <option value="">Select Activity Level</option>
-                        <option value="1.2">Sedentary (little or no exercise)</option>
-                        <option value="1.375">Lightly active (light exercise/sports 1-3 days/week)</option>
-                        <option value="1.55">Moderately active (moderate exercise/sports 3-5 days/week)</option>
-                        <option value="1.725">Very active (hard exercise/sports 6-7 days a week)</option>
-                        <option value="1.9">Super active (very hard exercise/sports & a physical job)</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-success btn-calculate">Calculate</button>
-            </form>
-        </div>
+    
+    <div class="cta-wrapper mt-4">
+            <div class="cta-section">
+                <h3>Get your Calories</h3>
+                <p>Discover your daily caloric needs based on your personal data. Understand how many calories you need to maintain your weight, lose fat, or gain muscle effectively.</p>
+                <a href="calculate_calories.php" class="btn btn-info">Calculate</a>
+            </div>
+            <div class="cta-section">
+                <h3>Get your Macros</h3>
+                <p>Calculate the optimal distribution of macronutrients (carbohydrates, proteins, fats) tailored to your specific fitness goals. Learn how to fuel your body the right way!</p>
+                <a href="calculate_macros.php" class="btn btn-info">Calculate</a>
+            </div>
+            <div class="cta-section">
+                <h3>Register for Free</h3>
+                <p>Join our community today! Sign up for free and start tracking your progress, setting goals, and accessing personalized content. No fees, just results.</p>
+                <a href="../views/register.php" class="btn btn-info">Register</a>
+            </div>
     </div>
-    </main>
+    
 
 
     

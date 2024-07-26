@@ -1,4 +1,15 @@
 <?php
+include("../views/partials/header.php");
+
+// Branch 1: Form to Get
+// If there was no post request display the form:
+    if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+        include("../views/calories_form.html");
+        include("../views/partials/footer.php");
+        return;
+    }
+
+// Branch 2: Post request
 // VALIDATORS 
 $age = $_POST['age'];
 $gender = $_POST['gender'];
@@ -44,7 +55,7 @@ $caloriesForWeightLoss = $calculator->caloriesForWeightLoss();
 $caloriesForMuscleGain = $calculator->caloriesForMuscleGain();
 $disclaimer = $calculator->getDisclaimer();
 
-include("../views/partials/header.php");
+
 
 include("../views/calories_result.html");
 

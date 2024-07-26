@@ -1,12 +1,8 @@
-<?php
-include("partials/header.php")
-?>
-
 <main>
     <div class="container mt-5">
         <div class="form-container mt-4">
-            <h2 class="text-center">Daily Macronutrient Needs</h2>
-            <form method="post" action="calculate_macros.php">
+            <h2 class="text-center">Daily Caloric Needs</h2>
+            <form method="post" action="calculate_calories.php">
                 <div class="form-group">
                     <label for="age">Age:</label>
                     <select class="form-control" id="age" name="age" required>
@@ -17,7 +13,7 @@ include("partials/header.php")
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Gender:</label>
+                    <label for="gender">Gender:</label>
                     <div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" id="male" name="gender" value="male" required>
@@ -33,12 +29,10 @@ include("partials/header.php")
                 <div class="form-group">
                     <label for="height">Height (cm):</label>
                     <input type="number" class="form-control" id="height" name="height" required>
-                    <div class="invalid-feedback">Height is required.</div>
                 </div>
                 <div class="form-group">
                     <label for="weight">Weight (kg):</label>
                     <input type="number" class="form-control" id="weight" name="weight" required>
-                    <div class="invalid-feedback">Weight is required.</div>
                 </div>
                 <div class="form-group">
                     <label for="activity">Activity Level:</label>
@@ -50,25 +44,9 @@ include("partials/header.php")
                         <option value="1.725">Very active (hard exercise/sports 6-7 days a week)</option>
                         <option value="1.9">Super active (very hard exercise/sports & a physical job)</option>
                     </select>
-                    <div class="invalid-feedback">Please select your activity level.</div>
-                </div>
-                <div class="form-group">
-                    <label for="goal">Fitness Goal:</label>
-                    <select class="form-control" id="goal" name="goal" required>
-                        <option value="">Select Fitness Goal</option>
-                        <option value="maintain">Maintain Weight</option>
-                        <option value="lose">Lose Weight</option>
-                        <option value="gain">Gain Weight</option>
-                    </select>
-                    <div class="invalid-feedback">Please select your fitness goal.</div>
                 </div>
                 <button type="submit" class="btn btn-success btn-calculate">Calculate</button>
             </form>
         </div>
     </div>
-</main>
-
-
-<?php
-include("partials/footer.php")
-?>
+    </main>

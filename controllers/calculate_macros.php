@@ -1,4 +1,15 @@
 <?php
+include("../views/partials/header.php");
+
+// Branch 1: Form to Get
+// If there was no post request display the form:
+    if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+        include("../views/macros_form.html");
+        include("../views/partials/footer.php");
+        return;
+    }
+
+// Branch 2: Post request
 
 // VALIDATORS 
 $age = $_POST['age'];
@@ -37,6 +48,38 @@ if (!in_array($activity, ["1.2", "1.375", "1.55", "1.725", "1.9"])) {
 if (!in_array($goal, ["maintain", "lose", "gain"])) {
     die("Invalid fitness goal provided.");
 }
+$goalDescriptions = [
+    'maintain' => 'Maintain weight',
+    'lose' => 'Lose fat',
+    'gain' => 'Gain muscle'
+];
+$goalDescription = isset($goalDescriptions[$goal]) ? $goalDescriptions[$goal] : 'Unknown goal';
+
+// If all inputs are valid, instantiate the MacroCalculator class
+require_once '../models/Macro_calculator_class.php';
+// Calculator Object
+$calculator = new MacroCalculator($age, $gender, $height, $weight, $activity, $goal);
+// Calculate macros based on the user input
+$macros = $calculator->calculateMacros();
+$disclaimer = $calculator->getDisclaimer();
+
+// Output results or pass them to a view
+echo "<h2>Your Macros:</h2>";
+echo "<p>Calories: " . $macros['calories'] . " kcal</p>";
+echo "<p>Protein: " . $macros['protein'] . " g</p>";
+echo "<p>Fats: " . $macros['fat'] . " g</p>";
+echo "<p>Carbohydrates: " . $macros['carbs'] . " g</p>";
+echo "<p>For your goal: ". $goalDescription. "</p>";
+
+echo $disclaimer;
+
+// include("../views/macros_result.html");
+
+
+include("../views/partials/footer.php");
+?>
+
+
 
 
 ?>
