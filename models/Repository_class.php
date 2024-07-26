@@ -62,24 +62,25 @@ class Repository {
     return $results;
 }
 
-     // Create User
-     public function createUser(User $new_user) {
-        try {
-          $query = 'INSERT INTO User (username, password, email, first_name, last_name) 
-                    VALUES (:username, :password, :email, :first_name, :last_name)';
-          $statement = $this->db->prepare($query);
-          $statement->bindValue(':username', $new_user->getUsername());
-          $statement->bindValue(':password', $new_user->getPassword());
-          $statement->bindValue(':email', $new_user->getEmail());
-          $statement->bindValue(':first_name', $new_user->getFirstName());  // Use getFirstName()
-          $statement->bindValue(':last_name', $new_user->getLastName());  // Use getLastName()
-          $statement->execute();
-          $statement->closeCursor();
-          echo "<b> Successful User Creation 😁. </b> Welcome " . $new_user->getFirstName() . "<br>";
-        } catch (PDOException $e) {
-          throw new Exception("Error adding item: " . $e->getMessage());
-        }
-      }
+     
+    // Create User
+    public function createUser(User $new_user) {
+    try {
+        $query = 'INSERT INTO User (username, password, email, first_name, last_name) 
+                VALUES (:username, :password, :email, :first_name, :last_name)';
+        $statement = $this->db->prepare($query);
+        $statement->bindValue(':username', $new_user->getUsername());
+        $statement->bindValue(':password', $new_user->getPassword());
+        $statement->bindValue(':email', $new_user->getEmail());
+        $statement->bindValue(':first_name', $new_user->getFirstName());  // Use getFirstName()
+        $statement->bindValue(':last_name', $new_user->getLastName());  // Use getLastName()
+        $statement->execute();
+        $statement->closeCursor();
+        echo "<b> Successful User Creation 😁. </b> Welcome " . $new_user->getFirstName() . "<br>";
+    } catch (PDOException $e) {
+        throw new Exception("Error adding item: " . $e->getMessage());
+    }
+    }
 
     //Getting the Id with the email
     public function getUserId($email) {

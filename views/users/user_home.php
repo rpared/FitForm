@@ -1,6 +1,7 @@
 <?php
 include("../partials/user_header.php");
 require_once '../../models/Repository_class.php';
+require_once '../..\models\Calorie_calculator_class.php';
 
 // This check is needed beacuse the user_header.php starts session too
 if (session_status() == PHP_SESSION_NONE) {
@@ -37,12 +38,13 @@ try {
     $errors[] = "An error occurred: " . $e->getMessage();
 }
 
-// Fetching from the statistics table 
+// Fetching from the statistics table, This should fetch only the most recent 
 try {
     $statistics = $repository->getUserStatistics($user_id); // Ensure user_id to fetch statistics
 } catch (PDOException $e) {
     $errors[] = "Error connecting to database: " . $e->getMessage();
 }
+
 
 
 ?>
@@ -63,6 +65,10 @@ try {
         <h3 class="text-center"><?php echo $greeting; ?>!</h3>
 
         <h5> &rarr; Objective: <?php echo htmlspecialchars($user_desired_objective); ?></h5>
+
+        <?php
+        include("user_needs.php");
+        ?>
 
         <div class="container mt-5">
             <div class="form-container mt-4">
@@ -99,7 +105,11 @@ try {
                 <a style="color: white; text-decoration: none;" href="add_progress.php">Add Progress</a>
             </button>
         </div>
+        <div class="disclaimer mt-4 text-muted" style="font-size: 0.9em;">
+            <?= $disclaimer ?>
+        </div>
     </main>
+    
 
 
 

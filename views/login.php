@@ -8,7 +8,7 @@ include("partials/header.php")
             <h2 class="text-center">User Login</h2>
             <form method="post" action="../controllers/login_process.php">
                 <div class="form-group">
-                    <label for="login_credential">login_credential or Email:</label>
+                    <label for="login_credential">Username or Email:</label>
                     <input type="text" class="form-control" id="login_credential" name="login_credential" required>
                     <div class="invalid-feedback">Username or Email is required.</div>
                 </div>

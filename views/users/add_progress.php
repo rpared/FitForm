@@ -42,7 +42,7 @@ $first_name = $_SESSION['first_name'];
                 </div> -->
 
                 <div class="form-group">
-                    <label for="weight">*Curent weight (kg):</label>
+                    <label for="weight">*Your weight (kg):</label>
                     <input type="number" class="form-control" id="weight" name="weight" placeholder="mandatory" required >
                 </div>
 

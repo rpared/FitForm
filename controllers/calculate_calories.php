@@ -1,5 +1,14 @@
 <?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+if (isset($_SESSION['user_id'])) {
+    include("../views/partials/user_header.php");
+    include("../views/partials/user_sidebar.html");
+} else {
 include("../views/partials/header.php");
+}
+
 
 // Branch 1: Form to Get
 // If there was no post request display the form:

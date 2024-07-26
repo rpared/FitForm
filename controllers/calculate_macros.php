@@ -1,5 +1,13 @@
 <?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+if (isset($_SESSION['user_id'])) {
+    include("../views/partials/user_header.php");
+    include("../views/partials/user_sidebar.html");
+} else {
 include("../views/partials/header.php");
+}
 
 // Branch 1: Form to Get
 // If there was no post request display the form:
@@ -44,7 +52,7 @@ if (!in_array($activity, ["1.2", "1.375", "1.55", "1.725", "1.9"])) {
     die("Invalid activity level provided.");
 }
 
-// Validate fitness goal
+// Validate fitness goal!
 if (!in_array($goal, ["maintain", "lose", "gain"])) {
     die("Invalid fitness goal provided.");
 }
@@ -63,17 +71,18 @@ $calculator = new MacroCalculator($age, $gender, $height, $weight, $activity, $g
 $macros = $calculator->calculateMacros();
 $disclaimer = $calculator->getDisclaimer();
 
+// NOt needed anymore
 // Output results or pass them to a view
-echo "<h2>Your Macros:</h2>";
-echo "<p>Calories: " . $macros['calories'] . " kcal</p>";
-echo "<p>Protein: " . $macros['protein'] . " g</p>";
-echo "<p>Fats: " . $macros['fat'] . " g</p>";
-echo "<p>Carbohydrates: " . $macros['carbs'] . " g</p>";
-echo "<p>For your goal: ". $goalDescription. "</p>";
+// echo "<h2>Your Macros:</h2>";
+// echo "<p>Calories: " . $macros['calories'] . " kcal</p>";
+// echo "<p>Protein: " . $macros['protein'] . " g</p>";
+// echo "<p>Fats: " . $macros['fat'] . " g</p>";
+// echo "<p>Carbohydrates: " . $macros['carbs'] . " g</p>";
+// echo "<p>For your goal: ". $goalDescription. "</p>";
 
-echo $disclaimer;
+// echo $disclaimer;
 
-// include("../views/macros_result.html");
+include("../views/macros_result.html");
 
 
 include("../views/partials/footer.php");

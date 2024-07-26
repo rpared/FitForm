@@ -13,16 +13,19 @@ include("../views/partials/header.php")
     <div class="cta-wrapper mt-4">
             <div class="cta-section">
                 <h3>Get your Calories</h3>
+                <img src="../public\images\calories.png" alt="Calculate calories">
                 <p>Discover your daily caloric needs based on your personal data. Understand how many calories you need to maintain your weight, lose fat, or gain muscle effectively.</p>
                 <a href="calculate_calories.php" class="btn btn-info">Calculate</a>
             </div>
             <div class="cta-section">
                 <h3>Get your Macros</h3>
+                <img src="../public\images\macros.png" alt="Calculate macros">
                 <p>Calculate the optimal distribution of macronutrients (carbohydrates, proteins, fats) tailored to your specific fitness goals. Learn how to fuel your body the right way!</p>
                 <a href="calculate_macros.php" class="btn btn-info">Calculate</a>
             </div>
             <div class="cta-section">
                 <h3>Register for Free</h3>
+                <img src="../public\images\sign-in.png" alt="Calculate sign-in">
                 <p>Join our community today! Sign up for free and start tracking your progress, setting goals, and accessing personalized content. No fees, just results.</p>
                 <a href="../views/register.php" class="btn btn-info">Register</a>
             </div>

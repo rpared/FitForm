@@ -7,6 +7,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../public/css/styles.css">
+    <link rel="shortcut icon" href="../public/images/favicon.png" type="image/x-icon">
 </head>
 <body>
     <!-- Navbar  this will be included in other files-->

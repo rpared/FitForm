@@ -186,6 +186,21 @@ h2{
     color: #434343;
 
 }
+.user-needs {
+    display: flex;
+    flex-direction: row; /* Change from column to row to align items side by side */
+    justify-content: space-between; /* Ensure space between the items */
+    max-width: 100%;
+    margin: 0 auto; /* Center the container if needed */
+}
+
+.w-40 {
+    width: 40%; /* Use width instead of max-width */
+    flex-grow: 1; /* Allow the div to grow */
+    flex-shrink: 1; /* Allow the div to shrink */
+    flex-basis: 40%; /* Basis for the flexbox sizing */
+    box-sizing: border-box; /* Include padding and border in the width */
+}
 
 footer{
     width: 100%;

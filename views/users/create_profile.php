@@ -1,5 +1,5 @@
 <?php
-include("../../partials/user_header.php");
+include("../partials/user_header.php");
 
 //This check is needed beacuse the user_header.php starts session too
 if (session_status() == PHP_SESSION_NONE) {

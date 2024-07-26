@@ -1,0 +1,18 @@
+<div class="container w-50 mt-5">
+    <div class="form-container mt-4">
+        <h2 class="text-center">Your Daily Macros</h2>
+        <div class="results mt-4">
+            <h1 class="cal-result"><?= $macros['calories'] ?> kcal</h1>
+            <p class="h4 text-center"><strong>Total Daily Calories</strong></p>
+            <div class="additional-info">
+                <p><strong>Protein:</strong> <?= $macros['protein'] ?> g</p>
+                <p><strong>Fats:</strong> <?= $macros['fat'] ?> g</p>
+                <p><strong>Carbohydrates:</strong> <?= $macros['carbs'] ?> g</p>
+                <p><strong>For your goal:</strong> <?= $goalDescription ?></p>
+            </div>
+        </div>
+        <div class="disclaimer mt-4 text-muted" style="font-size: 0.9em;">
+            <?= $disclaimer ?>
+        </div>
+    </div>
+</div>
