@@ -47,3 +47,12 @@
             </ul>
         </div>
     </nav>
+
+<script>
+
+var body = document.querySelector('body');
+body.style.paddingTop = 0;
+
+
+
+</script>

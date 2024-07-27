@@ -48,7 +48,7 @@ try {
 
 
 ?>
-
+<div class></div>
 <div class="sidebar">
     <a href="progress_tracker.php">Progress Tracker</a>
     <a href="add_progress.php">Add Progress</a>

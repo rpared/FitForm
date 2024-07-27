@@ -26,7 +26,7 @@ $first_name = $_SESSION['first_name'];
 </head>
 <body>
     <!-- Navbar  this will be included in other files-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light custom-navbar-bg">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top custom-navbar-bg">
         <a class="navbar-brand" href="\FitForm/views/users/user_home.php">
             <img src="\FitForm\public\images\FitFormLogoFinal.png" height="65" class="d-inline-block align-top" alt="Fit Form Innovations Logo">
         </a>

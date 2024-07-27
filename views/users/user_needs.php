@@ -92,13 +92,15 @@ $user_cals = $caloriesForWeightLoss;
     <div class="form-container mt-4">
         <h2 class="text-center">Your Daily Macros</h2>
         <div class="results mt-4">
-            <h1 class="cal-result"><?= $macros['calories'] ?> kcal</h1>
-            <p class="h4 text-center"><strong>Total Daily Calories</strong></p>
+            <h1 class="cal-result"><?= $macros['protein'] ?> g</h1>
+            <p class="h4 text-center"><strong>Total Protein</strong></p>
             <div class="additional-info">
-                <p><strong>Protein:</strong> <?= $macros['protein'] ?> g</p>
-                <p><strong>Fats:</strong> <?= $macros['fat'] ?> g</p>
-                <p><strong>Carbohydrates:</strong> <?= $macros['carbs'] ?> g</p>
-                <p><strong>For your goal:</strong> <?= $desired_objective ?></p>
+                <p><strong>Protein:</strong> <?= $macros['protein'] ?> g</br>
+                <strong>Fats:</strong> <?= $macros['fat'] ?> g</br>
+                <strong>Carbohydrates:</strong> <?= $macros['carbs'] ?> g</p>
+                <p><strong>For your goal:</strong> <?= $desired_objective ?></br>
+                <small>Your macros add up to get your calories: <strong> <?= $macros['calories'] ?> g </strong></small>
+            </p>
             </div>
         </div>
     </div>

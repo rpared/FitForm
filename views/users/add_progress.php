@@ -9,8 +9,8 @@ $first_name = $_SESSION['first_name'];
 ?>
 
 <div class="sidebar">
+    <a href="user_home.php">User Dashboard</a>
     <a href="progress_tracker.php">Progress Tracker</a>
-    <a href="add_progress.php">Add Progress</a>
     <a href="edit_profile.php">Edit Objective</a>
     <a href="edit_profile.php">Edit Profile</a>
     <a href="delete_account.php">Edit Account</a>

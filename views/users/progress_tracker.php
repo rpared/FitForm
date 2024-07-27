@@ -51,7 +51,7 @@ try {
 ?>
 
 <div class="sidebar">
-    <a href="user_home.php">Progress Tracker</a>
+    <a href="user_home.php">User Dashboard</a>
     <a href="add_progress.php">Add Progress</a>
     <a href="edit_profile.php">Edit Objective</a>
     <a href="edit_profile.php">Edit Profile</a>

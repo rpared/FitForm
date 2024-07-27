@@ -1,15 +1,18 @@
 body{
     margin: 0;
-}
-main{
-    margin: 0 auto;
-    max-width: 800px;
+    padding-top: 80px;
 }
 
-.navbar{
-    z-index: 3; /* Ensure navbar is above the sidebar and other content */
-    position: relative; /* Ensure z-index is applied */
+main{
+    margin: 20px auto 0;
+    max-width: 800px;
+    /* border: 1px solid #5ea23a; */
 }
+
+/* .navbar{
+    z-index: 3;
+    position: relative; 
+}  */
 
 .bg-light{
     margin: 0;
@@ -190,16 +193,23 @@ h2{
     display: flex;
     flex-direction: row; /* Change from column to row to align items side by side */
     justify-content: space-between; /* Ensure space between the items */
+    vertical-align: top;
     max-width: 100%;
     margin: 0 auto; /* Center the container if needed */
+    /* border: 1px solid #5ea23a; */
+    padding-top: 0;
 }
 
 .w-40 {
+    margin-top: 0;
     width: 40%; /* Use width instead of max-width */
     flex-grow: 1; /* Allow the div to grow */
     flex-shrink: 1; /* Allow the div to shrink */
     flex-basis: 40%; /* Basis for the flexbox sizing */
     box-sizing: border-box; /* Include padding and border in the width */
+}
+.mt-5{
+    margin-top: 0 !important;
 }
 
 footer{
@@ -224,8 +234,8 @@ footer{
     padding-top: 20px;
     border-right: 1px solid #ddd;
     z-index: 1;
-
 }
+
 .sidebar a {
     padding: 10px 15px;
     text-decoration: none;

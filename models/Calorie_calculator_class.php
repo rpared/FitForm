@@ -31,13 +31,15 @@ class CalorieCalculator {
     }
 
     public function caloriesForWeightLoss() {
-        $cals = $this->calculateCalories();
-        return max(1200, $cals - 500); // Ensure the calorie intake doesn't drop below 1200 kcal
+        $tdee = $this->calculateCalories();
+        $calories = $tdee * 0.80; // 20% reduction for weight loss
+        return max(1200, round($calories)); // Ensure minimum intake of 1200 kcal
     }
 
     public function caloriesForMuscleGain() {
-        $cals = $this->calculateCalories();
-        return $cals + 250; // Add 250 kcal for muscle gain
+        $tdee = $this->calculateCalories();
+        $calories = $tdee * 1.20; // 20% increase for muscle gain
+        return round($calories);
     }
 
     public function caloriesForMaintenance() {
