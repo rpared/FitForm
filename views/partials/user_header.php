@@ -1,5 +1,5 @@
 <?php
-require_once '../../models/Repository_class.php';
+// require_once '../../models/Repository_class.php';
 
 // Start the session if it has not been started yet
 if (session_status() == PHP_SESSION_NONE) {
@@ -12,13 +12,14 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $user_id = $_SESSION['user_id'];
+$first_name = $_SESSION['first_name'];
 
 // Getting the First name to display on top right corner
-$repository = new Repository();
+// $repository = new Repository();
 
-$user = $repository->getUser($user_id);
-$user = $user[0];
-$first_name = $user['first_name'];
+// $user = $repository->getUser($user_id);
+// $user = $user[0];
+// $first_name = $user['first_name'];
 
 ?>
 
@@ -71,7 +72,7 @@ $first_name = $user['first_name'];
 
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link login" href="\FitForm/views/users/user_home.php"><?php echo $first_name. "'s Profile";?> </a>               
+                    <a class="nav-link login" href="\FitForm/views/users/display_profile.php"><?php echo $first_name. "'s Profile";?> </a>               
                 </li>
                 <li class="nav-item tracker">
                     <a class="nav-link" href="\FitForm/controllers/logout.php">Logout</a>
