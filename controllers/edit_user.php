@@ -90,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         // Update user
         if ($repository->updateUser($email, $updated_data)) {
-            // $_SESSION['first_name'] = $first_name;
+            $_SESSION['first_name'] = $first_name;
             // $_SESSION['user_id'] = $user_id;
             // $_SESSION['flash_message'] = "Info updated successfully!";
             header('Location: ../views/users/user_home.php?updated');

@@ -54,7 +54,7 @@ if (!empty($profile)) {
         <h3><?php echo $first_name; ?>, let's edit your <b>objective</b>!</h3>
         
         <div class="form-container mt-4">
-            <h2 class="text-center">Edit Profile</h2>
+            <h2 class="text-center">Edit Objective</h2>
             <!-- <?php  var_dump($desired_objective);?> -->
             <form method="post" action="../../controllers/edit_objective.php">
                
