@@ -5,6 +5,6 @@ session_start(); // Start the session
 session_destroy();
 
 // Redirect to the homepage
-header('Location: ../controllers/index.php');
+header('Location: \FitForm/index.php');
 exit();
 ?>

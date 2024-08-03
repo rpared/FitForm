@@ -17,6 +17,8 @@ if ($users) {
                 <th>User ID</th>
                 <th>Username</th>
                 <th>Email</th>
+                <th>First Name</th>
+                <th>Last Name</th>
             </tr>";
     
     foreach ($users as $row) {
@@ -24,6 +26,8 @@ if ($users) {
               <td>{$row['user_id']}</td>
               <td>{$row['username']}</td>
               <td>{$row['email']}</td>
+              <td>{$row['first_name']}</td>
+              <td>{$row['last_name']}</td>
             </tr>";
     }
     

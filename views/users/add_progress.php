@@ -13,8 +13,8 @@ $first_name = $_SESSION['first_name'];
     <a href="progress_tracker.php">Progress Tracker</a>
     <a href="edit_profile.php">Edit Objective</a>
     <a href="edit_profile.php">Edit Profile</a>
-    <a href="delete_account.php">Edit Account</a>
-    <a href="delete_account.php">Delete Account</a>
+    <a href="\FitForm/views/users/edit_user_form.php">Edit Account</a>
+    <a href="#" id="delete-account-link">Delete Account</a>
     <a href="../../controllers/logout.php">Logout</a>
 </div>
 
@@ -72,7 +72,16 @@ $first_name = $_SESSION['first_name'];
         </div>
     </div>
 </main>
-
+<script>
+    document.querySelector('#delete-account-link').addEventListener('click', function(event) {
+        
+        event.preventDefault(); // Prevent the default action
+        console.log("clicked");
+        if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+            window.location.href = '../../controllers/delete_user.php';
+        }
+    });
+    </script>
 
 
 

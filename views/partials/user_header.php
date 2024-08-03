@@ -1,4 +1,6 @@
 <?php
+require_once '../../models/Repository_class.php';
+
 // Start the session if it has not been started yet
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -10,7 +12,14 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $user_id = $_SESSION['user_id'];
-$first_name = $_SESSION['first_name'];
+
+// Getting the First name to display on top right corner
+$repository = new Repository();
+
+$user = $repository->getUser($user_id);
+$user = $user[0];
+$first_name = $user['first_name'];
+
 ?>
 
 <!DOCTYPE html>

@@ -107,6 +107,43 @@ class Repository {
         return $result;
     }
 
+    // Edit User Account Information, either username or email
+    public function updateUser($email, $updated_data) {
+        try {
+            $query = 'UPDATE User SET username = :username, password = :password, first_name = :first_name, last_name = :last_name WHERE email = :email';
+            $statement = $this->db->prepare($query);
+            $statement->bindValue(':username', $updated_data['username']);
+            $statement->bindValue(':password', $updated_data['password']);
+            $statement->bindValue(':first_name', $updated_data['first_name']);
+            $statement->bindValue(':last_name', $updated_data['last_name']);
+            $statement->bindValue(':email', $email);
+            $result = $statement->execute();
+            $statement->closeCursor();
+            return $result;
+        } catch (PDOException $e) {
+            throw new Exception("Error updating user: " . $e->getMessage());
+        }
+    }
+    
+
+    
+    
+    // Deleting User Account
+        public function deleteUser($user_id) {
+            try {
+                $query = 'DELETE FROM User WHERE user_id = :user_id';
+                $statement = $this->db->prepare($query);
+                $statement->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+                $statement->execute();
+                $statement->closeCursor();
+                return true; // Return true on successful deletion
+            } catch (PDOException $e) {
+                throw new Exception("Error deleting user: " . $e->getMessage());
+            }
+        }
+
+    
+
     // Get profile by user_id
    
     public function getUserProfile($user_id) {
