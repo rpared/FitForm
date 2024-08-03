@@ -180,6 +180,44 @@ public function createProfile($user_id, Profile $new_profile) {
     }
 }
 
+// Edit Profile
+    public function updateProfile($user_id, $updated_data) {
+        try {
+            $query = 'UPDATE Profile 
+                    SET age = :age, gender = :gender, height = :height, weight = :weight, activity_level = :activity_level, desired_objective = :desired_objective 
+                    WHERE user_id = :user_id';
+            $statement = $this->db->prepare($query);
+            $statement->bindValue(':age', $updated_data['age']);
+            $statement->bindValue(':gender', $updated_data['gender']);
+            $statement->bindValue(':height', $updated_data['height']);
+            $statement->bindValue(':weight', $updated_data['weight']);
+            $statement->bindValue(':activity_level', $updated_data['activity_level']);
+            $statement->bindValue(':desired_objective', $updated_data['desired_objective']);
+            $statement->bindValue(':user_id', $user_id);
+            $result = $statement->execute();
+            $statement->closeCursor();
+            return $result;
+        } catch (PDOException $e) {
+            throw new Exception("Error updating profile: " . $e->getMessage());
+        }
+    }
+
+// Update Desired Objective
+public function updateObjective($user_id, $desired_objective) {
+    try {
+        $query = 'UPDATE Profile SET desired_objective = :desired_objective WHERE user_id = :user_id';
+        $statement = $this->db->prepare($query);
+        $statement->bindValue(':desired_objective', $desired_objective);
+        $statement->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $result = $statement->execute();
+        $statement->closeCursor();
+        return $result;
+    } catch (PDOException $e) {
+        throw new Exception("Error updating desired objective: " . $e->getMessage());
+    }
+}
+
+
 // Add Progress - Inserts rows into Statistics table in the db
 public function addProgress($user_id, $progressData) {
     try {

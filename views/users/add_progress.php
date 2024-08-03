@@ -11,8 +11,8 @@ $first_name = $_SESSION['first_name'];
 <div class="sidebar">
     <a href="user_home.php">User Dashboard</a>
     <a href="progress_tracker.php">Progress Tracker</a>
-    <a href="edit_profile.php">Edit Objective</a>
-    <a href="edit_profile.php">Edit Profile</a>
+    <a href="\FitForm/views/users/edit_profile_form.php">Edit Objective</a>
+    <a href="\FitForm/views/users/edit_profile_form.php">Edit Profile</a>
     <a href="\FitForm/views/users/edit_user_form.php">Edit Account</a>
     <a href="#" id="delete-account-link">Delete Account</a>
     <a href="../../controllers/logout.php">Logout</a>

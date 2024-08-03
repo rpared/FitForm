@@ -53,8 +53,8 @@ try {
 <div class="sidebar">
     <a href="user_home.php">User Dashboard</a>
     <a href="add_progress.php">Add Progress</a>
-    <a href="edit_profile.php">Edit Objective</a>
-    <a href="edit_profile.php">Edit Profile</a>
+    <a href="\FitForm/views/users/edit_objective_form.php">Edit Objective</a>
+    <a href="\FitForm/views/users/edit_profile_form.php">Edit Profile</a>
     <a href="\FitForm/views/users/edit_user_form.php">Edit Account</a>
     <a href="#" id="delete-account-link">Delete Account</a>
     <a href="../../controllers/logout.php">Logout</a>

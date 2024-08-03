@@ -54,6 +54,7 @@ if ($users) {
               <table border='1'>
               <tr>
                   <th>User ID</th>
+                  <th>gender</th>
                   <th>weight</th>
                   <th>height</th>
                   <th>age</th>
@@ -64,6 +65,7 @@ if ($users) {
       foreach ($profiles as $row) {
         echo "<tr>
                 <td>{$row['user_id']}</td>
+                <td>{$row['gender']}</td>
                 <td>{$row['weight']}</td>
                 <td>{$row['height']}</td>
                 <td>{$row['age']}</td>
