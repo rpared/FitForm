@@ -75,7 +75,7 @@ try {
         <br>
         <h3 class="text-center"><?php echo $greeting; ?>!</h3>
                     
-        <h5> &rarr; Objective: <?php echo htmlspecialchars($user_desired_objective); ?></h5>
+        <h5> &rarr; Objective: <b class="objective"><?php echo htmlspecialchars($user_desired_objective); ?></b></h5>
 
         <?php
         include("user_needs.php");

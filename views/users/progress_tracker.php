@@ -65,7 +65,7 @@ try {
         <br>
         <h3 class="text-center"><?php echo $greeting; ?>!</h3>
 
-        <h5> &rarr; Objective: <?php echo htmlspecialchars($user_desired_objective); ?></h5>
+        <h5> &rarr; Objective: <b class="objective"><?php echo htmlspecialchars($user_desired_objective); ?></b></h5>
 
         <div class="container mt-5">
             <div class="form-container mt-4">
@@ -79,6 +79,7 @@ try {
                         <th>Protein</th>
                         <th>Carbs</th>
                         <th>Fats</th>
+                        <th>-</th>
                     </tr>
                     <?php if (!empty($statistics)): ?>
                         <?php foreach ($statistics as $row): ?>
@@ -89,6 +90,12 @@ try {
                                 <td><?php echo htmlspecialchars($row['protein'] ?? 'NULL') . ' g'; ?></td>
                                 <td><?php echo htmlspecialchars($row['carbs'] ?? 'NULL') . ' g'; ?></td>
                                 <td><?php echo htmlspecialchars($row['fats'] ?? 'NULL') . ' g'; ?></td>
+                                <td>
+                                <form method="post" action="../../controllers/delete_statistic.php" style="display: inline;">
+                                    <input type="hidden" name="stat_id" value="<?php echo htmlspecialchars($row['stat_id']); ?>">
+                                    <button type="submit" name="delete_statistic" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
