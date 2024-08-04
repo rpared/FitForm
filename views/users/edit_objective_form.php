@@ -34,13 +34,13 @@ if (!empty($profile)) {
 ?>
 
 <div class="sidebar">
-    <a href="\FitForm/views/users/user_home.php">User Dashboard</a>
-    <a href="\FitForm/views/users/add_progress.php">Add Progress</a>
-    <a href="\FitForm/views/users/edit_objective_form.php">Edit Objective</a>
-    <a href="\FitForm/views/users/edit_profile_form.php">Edit Profile</a>
-    <a href="\FitForm/views/users/edit_user_form.php">Edit Account</a>
+    <a href="/FitForm/views/users/user_home.php">User Dashboard</a>
+    <a href="/FitForm/views/users/add_progress.php">Add Progress</a>
+    <a href="/FitForm/views/users/edit_objective_form.php">Edit Objective</a>
+    <a href="/FitForm/views/users/edit_profile_form.php">Edit Profile</a>
+    <a href="/FitForm/views/users/edit_user_form.php">Edit Account</a>
     <a href="#" id="delete-account-link">Delete Account</a>
-    <a href="\FitForm/controllers/logout.php">Logout</a>
+    <a href="/FitForm/controllers/logout.php">Logout</a>
 </div>
 
 <main>

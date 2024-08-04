@@ -1,6 +1,6 @@
 <?php
 require_once '../../models/Repository_class.php';
-require_once '../..\models\Calorie_calculator_class.php';
+require_once '../../models/Calorie_calculator_class.php';
 require_once '../../models/Macro_calculator_class.php';
 
 // Initialize the repository

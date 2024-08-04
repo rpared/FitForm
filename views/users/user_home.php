@@ -1,7 +1,7 @@
 <?php
 include("../partials/user_header.php");
 require_once '../../models/Repository_class.php';
-require_once '../..\models\Calorie_calculator_class.php';
+require_once '../../models/Calorie_calculator_class.php';
 
 // This check is needed beacuse the user_header.php starts session too
 if (session_status() == PHP_SESSION_NONE) {
@@ -55,9 +55,9 @@ try {
 <div class="sidebar">
     <a href="progress_tracker.php">Progress Tracker</a>
     <a href="add_progress.php">Add Progress</a>
-    <a href="\FitForm/views/users/edit_objective_form.php">Edit Objective</a>
-    <a href="\FitForm/views/users/edit_profile_form.php">Edit Profile</a>
-    <a href="\FitForm/views/users/edit_user_form.php">Edit Account</a>
+    <a href="/FitForm/views/users/edit_objective_form.php">Edit Objective</a>
+    <a href="/FitForm/views/users/edit_profile_form.php">Edit Profile</a>
+    <a href="/FitForm/views/users/edit_user_form.php">Edit Account</a>
     <a href="#" id="delete-account-link">Delete Account</a>
     <a href="../../controllers/logout.php">Logout</a>
 </div>
