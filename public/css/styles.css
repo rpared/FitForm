@@ -51,10 +51,12 @@ a:hover{
     background-color: #e8f1e4;
     border-radius: 5px;
     color: #5ea23a;
+    padding: auto 5px;
 }
 
 .tracker :hover{
     background-color: #83c55f;
+    top: 0px;
     color: #fff;
 }
 
@@ -138,12 +140,15 @@ h2{
         flex: 1 1 calc(50% - 20px);
         margin: 2% 10%;
         max-width: none;
+    
     }
+
 }
 @media (max-width: 576px) {
     .cta-wrapper .cta-section {
         flex: 1 1 100%;
     }
+
 }
 
 .form-container {
