@@ -4,6 +4,22 @@ include("partials/header.php")
 
 <main>
     <div class="container mt-5">
+        <?php if (isset($_GET["usernameexists"])): ?>
+                    <div class="alert alert-danger" role="alert">
+                    Username exists, please choose another one!
+                    </div>
+        <?php endif; ?>
+        <?php if (isset($_GET["emailexists"])): ?>
+                    <div class="alert alert-danger" role="alert">
+                    Email already registered, please choose another one!
+                    </div>
+        <?php endif; ?>
+        <?php if (isset($_GET["wrongpassword"])): ?>
+                    <div class="alert alert-danger" role="alert">
+                    Password must be at least 8 characters long and include at least one special character!
+                    </div>
+        <?php endif; ?>
+        
         <div class="form-container mt-4">
             <h2 class="text-center">User Registration</h2>
             <form method="post" action=".././controllers/register_confirmation.php">

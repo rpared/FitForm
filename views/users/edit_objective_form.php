@@ -34,13 +34,13 @@ if (!empty($profile)) {
 ?>
 
 <div class="sidebar">
-    <a href="\FitForm/views/users/user_home.php">User Dashboard</a>
-    <a href="\FitForm/views/users/add_progress.php">Add Progress</a>
-    <a href="\FitForm/views/users/edit_objective_form.php">Edit Objective</a>
-    <a href="\FitForm/views/users/edit_profile_form.php">Edit Profile</a>
-    <a href="\FitForm/views/users/edit_user_form.php">Edit Account</a>
+    <a href="/FitForm/views/users/user_home.php">User Dashboard</a>
+    <a href="/FitForm/views/users/add_progress.php">Add Progress</a>
+    <a href="/FitForm/views/users/edit_objective_form.php">Edit Objective</a>
+    <a href="/FitForm/views/users/edit_profile_form.php">Edit Profile</a>
+    <a href="/FitForm/views/users/edit_user_form.php">Edit Account</a>
     <a href="#" id="delete-account-link">Delete Account</a>
-    <a href="\FitForm/controllers/logout.php">Logout</a>
+    <a href="/FitForm/controllers/logout.php">Logout</a>
 </div>
 
 <main>
@@ -54,7 +54,7 @@ if (!empty($profile)) {
         <h3><?php echo $first_name; ?>, let's edit your <b>objective</b>!</h3>
         
         <div class="form-container mt-4">
-            <h2 class="text-center">Edit Profile</h2>
+            <h2 class="text-center">Edit Objective</h2>
             <!-- <?php  var_dump($desired_objective);?> -->
             <form method="post" action="../../controllers/edit_objective.php">
                

@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $password = $_POST["password"];
         // Ensure password meets requirements (at least 8 characters, including a special character)
         if (strlen($password) < 8 || !preg_match("/[!@#$%^&*()\-_=+{};:,<.>]/", $password)) {
-            die("Password must be at least 8 characters long and include at least one special character (!@#$%^&*()-_=+{};:,<.>).");
+            header('Location: ../views/register.php?wrongpassword');
         }
         // Hash the password for security before storing it
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
@@ -55,10 +55,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Last Name is required.");
     }
 
+// Validating for uniqueness
+    // Initialize the repository
+    $repository = new Repository();
+
+    // Check if username or email already exists
+    if ($repository->usernameExists($username)) {
+        header('Location: ../views/register.php?usernameexists');
+    }
+
+    if ($repository->emailExists($email)) {
+        header('Location: ../views/register.php?emailexists');
+    }
+
+
     // If all validations pass we got to create a User object and store it in the database using a Repository Function
     
     $new_user = new User($username, $hashed_password, $email, $first_name, $last_name);
-    $repository = new Repository();
+    
 
     $repository->createUser($new_user);
     session_start(); // Start the session

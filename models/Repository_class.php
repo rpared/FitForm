@@ -82,6 +82,29 @@ class Repository {
     }
     }
 
+// Validate username uniqueness
+    public function usernameExists($username) {
+        $query = 'SELECT COUNT(*) FROM User WHERE username = :username';
+        $statement = $this->db->prepare($query);
+        $statement->bindValue(':username', $username);
+        $statement->execute();
+        $count = $statement->fetchColumn();
+        $statement->closeCursor();
+        return $count > 0;
+    }
+// Validate email uniqueness
+    public function emailExists($email) {
+        $query = 'SELECT COUNT(*) FROM User WHERE email = :email';
+        $statement = $this->db->prepare($query);
+        $statement->bindValue(':email', $email);
+        $statement->execute();
+        $count = $statement->fetchColumn();
+        $statement->closeCursor();
+        return $count > 0;
+    }
+    
+
+
     //Getting the Id with the email
     public function getUserId($email) {
         $query = 'SELECT user_id FROM User WHERE email = :email';
@@ -216,6 +239,14 @@ public function updateObjective($user_id, $desired_objective) {
         throw new Exception("Error updating desired objective: " . $e->getMessage());
     }
 }
+// Delete Profile, function for Admins only
+public function deleteProfile($user_id) {
+    $query = 'DELETE FROM Profile WHERE user_id = :user_id';
+    $statement = $this->db->prepare($query);
+    $statement->bindValue(':user_id', $user_id);
+    $statement->execute();
+    $statement->closeCursor();
+}
 
 
 // Add Progress - Inserts rows into Statistics table in the db
@@ -253,8 +284,15 @@ public function addProgress($user_id, $progressData) {
         
         return $results;
     }
-
-
+    
+    // Function to delete a statistic
+    public function deleteStatistic($stat_id) {
+        $query = 'DELETE FROM Statistics WHERE stat_id = :stat_id';
+        $statement = $this->db->prepare($query);
+        $statement->bindValue(':stat_id', $stat_id);
+        $statement->execute();
+        $statement->closeCursor();
+    }
 
 
 
