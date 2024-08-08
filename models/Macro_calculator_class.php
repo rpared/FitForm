@@ -5,15 +5,15 @@ class MacroCalculator {
     private $height;
     private $weight;
     private $activity;
-    private $goal;
+    private $desired_objective;
 
-    public function __construct($age, $gender, $height, $weight, $activity, $goal) {
+    public function __construct($age, $gender, $height, $weight, $activity, $desired_objective) {
         $this->age = $age;
         $this->gender = $gender;
         $this->height = $height;
         $this->weight = $weight;
         $this->activity = $activity;
-        $this->goal = $goal;
+        $this->desired_objective = $desired_objective;
     }
 
     // Function to calculate BMR
@@ -31,23 +31,23 @@ class MacroCalculator {
         return $bmr * $this->activity;
     }
 
-    // Function to calculate macronutrients based on the goal
+    // Function to calculate macronutrients based on the desired_objective
     public function calculateMacros() {
         $tdee = $this->calculateCalories();
         $macros = [];
 
-        switch ($this->goal) {
-            case 'maintain':
+        switch ($this->desired_objective) {
+            case 'Maintain Weight':
                 $macros = $this->macrosForMaintenance($tdee);
                 break;
-            case 'lose':
+            case 'Weight Loss':
                 $macros = $this->macrosForWeightLoss($tdee);
                 break;
-            case 'gain':
+            case 'Muscle Gain':
                 $macros = $this->macrosForMuscleGain($tdee);
                 break;
             default:
-                throw new Exception("Invalid goal");
+                throw new Exception("Invalid desired objective");
         }
 
         return $macros;

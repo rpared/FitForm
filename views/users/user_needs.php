@@ -1,6 +1,6 @@
 <?php
 require_once '../../models/Repository_class.php';
-require_once '../..\models\Calorie_calculator_class.php';
+require_once '../../models/Calorie_calculator_class.php';
 require_once '../../models/Macro_calculator_class.php';
 
 // Initialize the repository
@@ -14,8 +14,8 @@ $gender = $profile['gender'];
 $height = $profile['height'];
 $weight = $profile['weight'];
 $activity = $profile['activity_level'];
-$goal = $profile['desired_objective'];
-// var_dump($goal); must translate this ugh
+$desired_objective = $profile['desired_objective'];
+// var_dump($desired_objective); must translate this ugh
 
 switch ($activity) {
     case "Sedentary":
@@ -56,14 +56,14 @@ $user_cals = $caloriesForWeightLoss;
     $user_cals = $caloriesForMaintenance;
     };
 
-    if($goal == "Muscle Gain") { $goal = 'gain';} 
-    elseif ($goal == "Maintain weight") { $goal = 'maintain';} 
-    elseif ($goal == "Lose fat") { $goal = 'lose';}
+    // if($desired_objective == "Muscle Gain") { $goal= 'gain';} 
+    // elseif ($desired_objective == "Maintain weight") { $goal = 'maintain';} 
+    // elseif ($desired_objective == "Lose fat") { $goal= 'lose';}
 
 
     
     // Macro Calculator Object
-    $calculator_macros = new MacroCalculator($age, $gender, $height, $weight, $activity, $goal);
+    $calculator_macros = new MacroCalculator($age, $gender, $height, $weight, $activity, $desired_objective);
     // Calculate macros based on the user input
     $macros = $calculator_macros->calculateMacros();
 

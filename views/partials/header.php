@@ -6,14 +6,14 @@
     <title>Nutritional Calculator</title>
     <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../public/css/styles.css">
-    <link rel="shortcut icon" href="../public/images/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="/FitForm/public/css/styles.css">
+    <link rel="shortcut icon" href="/FitForm/public/images/favicon.png" type="image/x-icon">
 </head>
 <body>
     <!-- Navbar  this will be included in other files-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light custom-navbar-bg">
-        <a class="navbar-brand" href="../controllers/index.php">
-            <img src="..\public\images\FitFormLogoFinal.png" height="65" class="d-inline-block align-top" alt="Fit Form Innovations Logo">
+        <a class="navbar-brand" href="/FitForm/index.php">
+            <img src="/FitForm/public/images/FitFormLogoFinal.png" height="65" class="d-inline-block align-top" alt="Fit Form Innovations Logo">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -25,24 +25,24 @@
                         Calculate
                     </a>
                     <div class="dropdown-menu" aria-labelledby="calculateDropdown">
-                        <a class="dropdown-item" href="../controllers/calculate_calories.php">Calories</a>
-                        <a class="dropdown-item" href="../controllers/calculate_macros.php">Macros</a>
+                        <a class="dropdown-item" href="/FitForm/controllers/calculate_calories.php">Calories</a>
+                        <a class="dropdown-item" href="/FitForm/controllers/calculate_macros.php">Macros</a>
                     </div>
                 </li>
 
                 <li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../views/about.php">About</a>
+                    <a class="nav-link" href="/FitForm/views/about.php">About</a>
                 </li>
                 </li>
             </ul>
 
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link login" href="../views/login.php">Login</a>
+                    <a class="nav-link login" href="/FitForm/views/login.php">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link login" href="../views/register.php">Register</a>
+                    <a class="nav-link login" href="/FitForm/views/register.php">Register</a>
                 </li>
             </ul>
         </div>

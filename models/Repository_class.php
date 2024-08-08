@@ -82,6 +82,29 @@ class Repository {
     }
     }
 
+// Validate username uniqueness
+    public function usernameExists($username) {
+        $query = 'SELECT COUNT(*) FROM User WHERE username = :username';
+        $statement = $this->db->prepare($query);
+        $statement->bindValue(':username', $username);
+        $statement->execute();
+        $count = $statement->fetchColumn();
+        $statement->closeCursor();
+        return $count > 0;
+    }
+// Validate email uniqueness
+    public function emailExists($email) {
+        $query = 'SELECT COUNT(*) FROM User WHERE email = :email';
+        $statement = $this->db->prepare($query);
+        $statement->bindValue(':email', $email);
+        $statement->execute();
+        $count = $statement->fetchColumn();
+        $statement->closeCursor();
+        return $count > 0;
+    }
+    
+
+
     //Getting the Id with the email
     public function getUserId($email) {
         $query = 'SELECT user_id FROM User WHERE email = :email';
@@ -106,6 +129,43 @@ class Repository {
         $statement->closeCursor();
         return $result;
     }
+
+    // Edit User Account Information, either username or email
+    public function updateUser($email, $updated_data) {
+        try {
+            $query = 'UPDATE User SET username = :username, password = :password, first_name = :first_name, last_name = :last_name WHERE email = :email';
+            $statement = $this->db->prepare($query);
+            $statement->bindValue(':username', $updated_data['username']);
+            $statement->bindValue(':password', $updated_data['password']);
+            $statement->bindValue(':first_name', $updated_data['first_name']);
+            $statement->bindValue(':last_name', $updated_data['last_name']);
+            $statement->bindValue(':email', $email);
+            $result = $statement->execute();
+            $statement->closeCursor();
+            return $result;
+        } catch (PDOException $e) {
+            throw new Exception("Error updating user: " . $e->getMessage());
+        }
+    }
+    
+
+    
+    
+    // Deleting User Account
+        public function deleteUser($user_id) {
+            try {
+                $query = 'DELETE FROM User WHERE user_id = :user_id';
+                $statement = $this->db->prepare($query);
+                $statement->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+                $statement->execute();
+                $statement->closeCursor();
+                return true; // Return true on successful deletion
+            } catch (PDOException $e) {
+                throw new Exception("Error deleting user: " . $e->getMessage());
+            }
+        }
+
+    
 
     // Get profile by user_id
    
@@ -143,6 +203,52 @@ public function createProfile($user_id, Profile $new_profile) {
     }
 }
 
+// Edit Profile
+    public function updateProfile($user_id, $updated_data) {
+        try {
+            $query = 'UPDATE Profile 
+                    SET age = :age, gender = :gender, height = :height, weight = :weight, activity_level = :activity_level, desired_objective = :desired_objective 
+                    WHERE user_id = :user_id';
+            $statement = $this->db->prepare($query);
+            $statement->bindValue(':age', $updated_data['age']);
+            $statement->bindValue(':gender', $updated_data['gender']);
+            $statement->bindValue(':height', $updated_data['height']);
+            $statement->bindValue(':weight', $updated_data['weight']);
+            $statement->bindValue(':activity_level', $updated_data['activity_level']);
+            $statement->bindValue(':desired_objective', $updated_data['desired_objective']);
+            $statement->bindValue(':user_id', $user_id);
+            $result = $statement->execute();
+            $statement->closeCursor();
+            return $result;
+        } catch (PDOException $e) {
+            throw new Exception("Error updating profile: " . $e->getMessage());
+        }
+    }
+
+// Update Desired Objective
+public function updateObjective($user_id, $desired_objective) {
+    try {
+        $query = 'UPDATE Profile SET desired_objective = :desired_objective WHERE user_id = :user_id';
+        $statement = $this->db->prepare($query);
+        $statement->bindValue(':desired_objective', $desired_objective);
+        $statement->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $result = $statement->execute();
+        $statement->closeCursor();
+        return $result;
+    } catch (PDOException $e) {
+        throw new Exception("Error updating desired objective: " . $e->getMessage());
+    }
+}
+// Delete Profile, function for Admins only
+public function deleteProfile($user_id) {
+    $query = 'DELETE FROM Profile WHERE user_id = :user_id';
+    $statement = $this->db->prepare($query);
+    $statement->bindValue(':user_id', $user_id);
+    $statement->execute();
+    $statement->closeCursor();
+}
+
+
 // Add Progress - Inserts rows into Statistics table in the db
 public function addProgress($user_id, $progressData) {
     try {
@@ -178,8 +284,15 @@ public function addProgress($user_id, $progressData) {
         
         return $results;
     }
-
-
+    
+    // Function to delete a statistic
+    public function deleteStatistic($stat_id) {
+        $query = 'DELETE FROM Statistics WHERE stat_id = :stat_id';
+        $statement = $this->db->prepare($query);
+        $statement->bindValue(':stat_id', $stat_id);
+        $statement->execute();
+        $statement->closeCursor();
+    }
 
 
 

@@ -13,11 +13,11 @@ include("../views/partials/header.php");
         <div class="container mt-5">
             <div class="about-us-container mt-4">
                 <h2 class="text-center">About Us</h2>
-                <div class="row mt-4">
+                <div class="row mt-4 ">
                     <div class="col-md-6">
                         <img src="../public/images/aboutus_pic.png" class="img-fluid" alt="About Us Image">
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 whitebg">
                         <h3>Our Mission</h3>
                         <p>We aim to empower individuals to take control of their health and fitness through precise nutritional tracking. Our user-friendly platform helps you calculate your daily caloric and macronutrient needs, register your progress, and achieve your fitness goals.</p>
                         <h3>Our Story</h3>
@@ -31,7 +31,9 @@ include("../views/partials/header.php");
                             <li>Track your Progress</li>
                         </ul>
                     </div>
+                    
                 </div>
+                <br>
                 <div class="row mt-5">
                     <div class="col text-center" >
                         <a href="register.php" class="btn btn-success btn-calculate" style="display : inline;">Get Started</a>

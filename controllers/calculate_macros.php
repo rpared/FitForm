@@ -25,7 +25,7 @@ $gender = $_POST['gender'];
 $height = $_POST['height'];
 $weight = $_POST['weight'];
 $activity = $_POST['activity'];
-$goal = $_POST['goal'];
+$desired_objective = $_POST['desired_objective'];
 
 // Validate age
 if (!is_numeric($age) || $age < 16 || $age > 80) {
@@ -52,21 +52,21 @@ if (!in_array($activity, ["1.2", "1.375", "1.55", "1.725", "1.9"])) {
     die("Invalid activity level provided.");
 }
 
-// Validate fitness goal!
-if (!in_array($goal, ["maintain", "lose", "gain"])) {
+// Validate fitness desired_objective!
+if (!in_array($desired_objective, ["Maintain Weight", "Weight Loss", "Muscle Gain"])) {
     die("Invalid fitness goal provided.");
 }
-$goalDescriptions = [
-    'maintain' => 'Maintain weight',
-    'lose' => 'Lose fat',
-    'gain' => 'Gain muscle'
-];
-$goalDescription = isset($goalDescriptions[$goal]) ? $goalDescriptions[$goal] : 'Unknown goal';
+// $goalDescriptions = [
+//     'maintain' => 'Maintain weight',
+//     'lose' => 'Lose fat',
+//     'gain' => 'Gain muscle'
+// ];
+// $goalDescription = isset($goalDescriptions[$desired_objective]) ? $goalDescriptions[$desired_objective] : 'Unknown desired objective';
 
 // If all inputs are valid, instantiate the MacroCalculator class
 require_once '../models/Macro_calculator_class.php';
 // Calculator Object
-$calculator = new MacroCalculator($age, $gender, $height, $weight, $activity, $goal);
+$calculator = new MacroCalculator($age, $gender, $height, $weight, $activity, $desired_objective);
 // Calculate macros based on the user input
 $macros = $calculator->calculateMacros();
 $disclaimer = $calculator->getDisclaimer();

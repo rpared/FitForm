@@ -1,7 +1,7 @@
 <?php
 include("../partials/user_header.php");
 require_once '../../models/Repository_class.php';
-require_once '../..\models\Calorie_calculator_class.php';
+require_once '../../models/Calorie_calculator_class.php';
 
 // This check is needed beacuse the user_header.php starts session too
 if (session_status() == PHP_SESSION_NONE) {
@@ -11,8 +11,9 @@ if (session_status() == PHP_SESSION_NONE) {
 if (!isset($_SESSION['user_id'])) {
     die("User is not logged in.");
 }
-$user_id = $_SESSION['user_id']; //Retrieve from the _Session superglobal
-$first_name = $_SESSION['first_name'];
+
+
+$user_id = $_SESSION['user_id'];
 
 // Initialize the repository
 $repository = new Repository();
@@ -32,7 +33,10 @@ try {
     if($user_desired_objective == "Maintain Weight"){
         $greeting = "You're doing great, <b>" . $first_name . "</b>! Keep up the fantastic work!";
     }
-
+    //Retrieve the first name from the database to display it
+    $user_account = $repository->getUser($user_id);
+    $user_account = $user_account[0];
+    $first_name = $user_account['first_name'];
 
 } catch (Exception $e) {
     $errors[] = "An error occurred: " . $e->getMessage();
@@ -46,25 +50,32 @@ try {
 }
 
 
-
 ?>
 <div class></div>
 <div class="sidebar">
     <a href="progress_tracker.php">Progress Tracker</a>
     <a href="add_progress.php">Add Progress</a>
-    <a href="edit_profile.php">Edit Objective</a>
-    <a href="edit_profile.php">Edit Profile</a>
-    <a href="delete_account.php">Edit Account</a>
-    <a href="delete_account.php">Delete Account</a>
+    <a href="/FitForm/views/users/edit_objective_form.php">Edit Objective</a>
+    <a href="/FitForm/views/users/edit_profile_form.php">Edit Profile</a>
+    <a href="/FitForm/views/users/edit_user_form.php">Edit Account</a>
+    <a href="#" id="delete-account-link">Delete Account</a>
     <a href="../../controllers/logout.php">Logout</a>
 </div>
 
 <div class="main-content">
+
+
+</div>
     <main>
+            <?php if (isset($_GET["updated"])): ?>
+                <div class="alert alert-success" role="alert">
+                Info updated successfully!
+                </div>
+            <?php endif; ?>
         <br>
         <h3 class="text-center"><?php echo $greeting; ?>!</h3>
-
-        <h5> &rarr; Objective: <?php echo htmlspecialchars($user_desired_objective); ?></h5>
+                    
+        <h5> &rarr; Objective: <b class="objective"><?php echo htmlspecialchars($user_desired_objective); ?></b></h5>
 
         <?php
         include("user_needs.php");
@@ -83,8 +94,8 @@ try {
                         <th>Carbs</th>
                         <th>Fats</th>
                     </tr>
-                    <?php if (!empty($statistics)): ?>
-                        <?php foreach ($statistics as $row): ?>
+                    <?php if (!empty($statistics)): 
+                         foreach ($statistics as $row): ?>
                             <tr>
                                 <td><?php echo htmlspecialchars($row['date']); ?></td>
                                 <td><?php echo htmlspecialchars($row['weight']) . ' kg'; ?></td>
@@ -109,7 +120,16 @@ try {
             <?= $disclaimer ?>
         </div>
     </main>
-    
+    <script>
+    document.querySelector('#delete-account-link').addEventListener('click', function(event) {
+        
+        event.preventDefault(); // Prevent the default action
+        console.log("clicked");
+        if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+            window.location.href = '../../controllers/delete_user.php';
+        }
+    });
+    </script>
 
 
 
