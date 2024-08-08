@@ -42,7 +42,6 @@ Ensure you have the following installed:
 
 2. **Update Database Connection Settings:**
     - The project uses a database connection class. Use Azure settings with SSL if required.
-    ```
 
 3. **Local Deployment:**
     - For local deployment, adjust the connection settings in the class to match your local database configuration. Update settings as needed for local deployments.
