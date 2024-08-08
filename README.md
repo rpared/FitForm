@@ -7,7 +7,6 @@ Welcome to FitForm Innovations, a web application designed to help you calculate
 - [Features](#features)
 - [Getting Started](#getting-started)
 - [Usage](#usage)
-- [API Documentation](#api-documentation)
 - [User Guides](#user-guides)
 - [Developer Guides](#developer-guides)
 - [FAQs](#faqs)
@@ -54,17 +53,6 @@ To run FitForm Innovations locally:
    - Submit the form to get your daily caloric needs and macronutrient breakdown.
    - If registered, you can log and track your progress through your account.
 
-## API Documentation
-
-- **GET /api/calculate-calories**: Returns caloric needs based on input parameters.
-  - **Parameters**: `age`, `gender`, `height`, `weight`, `activity`
-  - **Response**: JSON object with caloric needs and macronutrient distribution.
-
-- **POST /api/register**: Allows users to register an account.
-  - **Parameters**: `username`, `email`, `password`, `first_name`, `last_name`
-  - **Response**: JSON object with registration status.
-
-For more details, see the [API Documentation](docs/api/API_Endpoints.md).
 
 ## User Guides
 

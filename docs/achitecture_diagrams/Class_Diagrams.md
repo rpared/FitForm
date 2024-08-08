@@ -70,8 +70,6 @@
 
 ## Schema Diagram
 
-To visualize the overall system architecture and relationships among the classes, please refer to the following schema diagram:
+To visualize the relationships among the classes, please refer to the following schema diagram:
 
-![System Architecture Schema](path/to/your/schema-diagram.png)
-
-Or view the detailed diagram [here](path/to/your/schema-diagram.png).
+![relationships among the classe](images/Class_Diagram.png).

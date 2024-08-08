@@ -35,21 +35,19 @@ Ensure you have the following installed:
 
 ## Configuration
 
-1. Navigate to the project's root directory:
+1. **Navigate to the project's root directory:**
     ```bash
     cd /path/to/xampp/htdocs/fitform-innovations
     ```
-2. Create a copy of the sample configuration file:
-    ```bash
-    cp config.sample.php config.php
+
+2. **Update Database Connection Settings:**
+    - The project uses a database connection class. Use Azure settings with SSL if required.
     ```
-3. Edit `config.php` with your database credentials:
-    ```php
-    define('DB_HOST', 'localhost');
-    define('DB_NAME', 'fitform_db');
-    define('DB_USER', 'your_username');
-    define('DB_PASS', 'your_password');
-    ```
+
+3. **Local Deployment:**
+    - For local deployment, adjust the connection settings in the class to match your local database configuration. Update settings as needed for local deployments.
+---
+
 
 ## Database Setup
 
