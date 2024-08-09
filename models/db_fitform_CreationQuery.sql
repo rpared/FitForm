@@ -29,38 +29,42 @@ CREATE TABLE Statistics (
   user_id INT NOT NULL,                 -- Foreign key referencing User.user_id, must be autofilled for the user
   date DATE NOT NULL,                   -- Date of the statistic, must be autofilled
   weight DECIMAL(6, 2) NOT NULL,        -- Weight KG in decimal format
-  calorie_intake INT (5) NULL,           		-- Calorie intake, not mandatory
+  calorie_intake INT (5) NULL,          -- Calorie intake, not mandatory
   protein DECIMAL(5, 2) NULL, 			 -- Macro-nutrient: Protein (grams), not mandatory
   carbs DECIMAL(5, 2) NULL,  			 -- Macro-nutrient: Carbs (grams), not mandatory
   fats DECIMAL(5, 2) NULL,    			 -- Macro-nutrient: Fats (grams), must be automatically calculated to fit this: calorie_intake = carbs*4 + proteins*4 + fats*9
   PRIMARY KEY (stat_id),                 -- Define stat_id as the primary key
   FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE  -- Foreign key constraint referencing User table, with cascade delete on User record deletion
 );
+
+-- Avoid any insertion operations as they are not validated, only use prepared statements!
+-- The following are just for testing purposes
+
 -- Inserting 2 users
-INSERT INTO User (username, password, email, first_name, last_name)
-VALUES ("roger", "secure_password123", "somemail@example.com", "Roger", "Paredes");
+-- INSERT INTO User (username, password, email, first_name, last_name)
+-- VALUES ("roger", "secure_password123", "somemail@example.com", "Roger", "Paredes");
 
-INSERT INTO User (username, password, email, first_name, last_name)
-VALUES ("jane_smith", "another_secure_password", "jane.smith@example.com", "Jane", "Smith");
+-- INSERT INTO User (username, password, email, first_name, last_name)
+-- VALUES ("jane_smith", "another_secure_password", "jane.smith@example.com", "Jane", "Smith");
 
-SELECT * FROM User;
+-- SELECT * FROM User;
 
--- Insert profile data for "roger" using the user ID
-INSERT INTO Profile (user_id, age, gender, height, weight, activity_level, desired_objective)
-VALUES (1, 41, "Male", 172.00, 65.00, 'Moderately Active', 'Muscle Gain');
+-- -- Insert profile data for "roger" using the user ID
+-- INSERT INTO Profile (user_id, age, gender, height, weight, activity_level, desired_objective)
+-- VALUES (1, 41, "Male", 172.00, 65.00, 'Moderately Active', 'Muscle Gain');
 
-INSERT INTO Profile (user_id, age, gender, height, weight, activity_level, desired_objective)
-VALUES (2, 28, "Female", 158.00, 66.00, 'Lightly Active', 'Weight Loss');
+-- INSERT INTO Profile (user_id, age, gender, height, weight, activity_level, desired_objective)
+-- VALUES (2, 28, "Female", 158.00, 66.00, 'Lightly Active', 'Weight Loss');
 
 
-SELECT * FROM Profile;
+-- SELECT * FROM Profile;
 
--- Insert statistics data for "roger" using the user ID
+-- -- Insert statistics data for "roger" using the user ID
 
-INSERT INTO Statistics (user_id, date, weight, calorie_intake, protein)
-VALUES (1, '2024-07-12', 65.00, 2700, 100);
+-- INSERT INTO Statistics (user_id, date, weight, calorie_intake, protein)
+-- VALUES (1, '2024-07-12', 65.00, 2700, 100);
 
-INSERT INTO Statistics (user_id, date, weight, calorie_intake)
-VALUES (2, '2024-07-12', 62.00, 2500);
+-- INSERT INTO Statistics (user_id, date, weight, calorie_intake)
+-- VALUES (2, '2024-07-12', 62.00, 2500);
 
-SELECT * FROM statistics;
+-- SELECT * FROM statistics;
