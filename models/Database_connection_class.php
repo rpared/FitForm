@@ -1,19 +1,19 @@
 <?php
-require_once 'password.php'; // Remove dependency if a local database is being created 
+require_once 'password.php'; // Remove this dependency if a local database is being created 
 
 class Database_connection {
-    //ROGER's AZURE DATABASE - // Remove lines 6-8 if a local database is being created 
+    //ROGER's AZURE DATABASE - // Replace variables in lines 6-8 if a local database is being created (This info will not be available once the repository is public)
     private $dsn = 'mysql:host=rogersql.mysql.database.azure.com;dbname=db_fitform;sslmode=require';
     private $username = 'mysql';
     private $password;
 
-    // Localhost // Uncomment lines 12-14 and replace variables if a local database is being created 
-    // run models/db_fitform_CreationQuery.sql to create database
-    // $dsn = 'mysql:host=localhost; dbname=db_fitform';
-    // $username = 'root';
-    // $password = '1234';
+    // Localhost > Example of how to replace variables if a local database is being created: 
+    // run models/db_fitform_CreationQuery.sql file in your mySQL tool to create the required schema.
+    // private $dsn = 'mysql:host=localhost; dbname=db_fitform';
+    // private $username = 'root';
+    // private $password = '1234';
 
-    private $ssl_cert = './SSLcert/MicrosoftRSARootCertificateAuthority2017.crt';
+    private $ssl_cert = './SSLcert/MicrosoftRSARootCertificateAuthority2017.crt'; //SSL certificate
     private $options;
     private $db;
 
