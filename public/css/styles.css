@@ -297,3 +297,40 @@ footer{
 .progress-tracker tr:hover {
     background-color: #e2e2e2;
 }
+
+@media (max-width: 650px) {
+    body{
+        padding-top: 0;
+    }
+    .sidebar {
+        position: relative;
+        display: block;
+        height: fit-content;
+        width: 100%;
+        margin-top: 0;
+        padding-top: 0;
+        z-index: 1;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #5ea23a;
+    }
+    .main-content {
+        margin-top: 80px;
+        margin-left: 0px;
+        padding: 10px;
+    }
+
+    .user-needs {
+        flex-direction: column;
+        max-width: 100%;
+        margin: 0 auto; /* Center the container if needed */
+        /* border: 1px solid #5ea23a; */
+        padding-top: 0;
+    }
+
+    .user-needs .mt-5 {
+        max-width: 96%;
+    }
+    .w-40{
+        width: 96%;
+    }
+}

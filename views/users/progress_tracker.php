@@ -40,12 +40,41 @@ try {
     $errors[] = "An error occurred: " . $e->getMessage();
 }
 
-// Fetching from the statistics table 
+// Define the number of records per page
+$records_per_page = 6;
+
+// Get the current page from the query parameter, default to 1 if not set
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$offset = ($page - 1) * $records_per_page;
+
+// Fetch paginated data
 try {
-    $statistics = $repository->getUserStatistics($user_id); // Ensure user_id to fetch statistics
+    $statistics = $repository->getUserStatisticsPaginated($user_id, $records_per_page, $offset);
 } catch (PDOException $e) {
     $errors[] = "Error connecting to database: " . $e->getMessage();
 }
+
+// Fetch total count of records for pagination
+try {
+    $total_records = $repository->getTotalStatisticsCount($user_id);
+    $total_pages = ceil($total_records / $records_per_page);
+} catch (PDOException $e) {
+    $errors[] = "Error connecting to database: " . $e->getMessage();
+}
+
+    // Sort data for chart display (ascending order)
+try{
+    $full_statistics = $repository->getUserStatistics($user_id);
+    $statistics_for_chart = $full_statistics;
+    usort($statistics_for_chart, function($a, $b) {
+        return strtotime($a['date']) - strtotime($b['date']);
+    });
+
+
+} catch (PDOException $e) {
+    $errors[] = "Error connecting to database: " . $e->getMessage();
+}
+
 
 
 ?>
@@ -67,6 +96,7 @@ try {
 
         <h5> &rarr; Objective: <b class="objective"><?php echo htmlspecialchars($user_desired_objective); ?></b></h5>
 
+        <!-- Display Records -->
         <div class="container mt-5">
             <div class="form-container mt-4">
                 <h2 class="text-center">Progress Tracker</h2>
@@ -104,10 +134,35 @@ try {
                         </tr>
                     <?php endif; ?>
                 </table>
+                
+                <!-- Pagination Controls -->
+                <div class="pagination">
+                    <?php if ($page > 1): ?>
+                        <a href="?page=<?php echo $page - 1; ?>" class="btn btn-secondary">Previous</a>
+                    <?php endif; ?>
+                    
+                    <?php if ($page < $total_pages): ?>
+                        <a href="?page=<?php echo $page + 1; ?>" class="btn btn-secondary">Next</a>
+                    <?php endif; ?>
+                </div>
             </div>
+
+            <!-- Canvas for Chart.js -->
+            <div class="form-container mt-4">
+                <h3>Weight Over Time</h3>
+                <canvas id="weightChart" width="400" height="200"></canvas>
+                <br>
+                <h3>Calories Over Time</h3>
+                <canvas id="caloriesChart" width="400" height="200"></canvas>
+            
+            </div>
+
             <button class="btn btn-success btn-calculate">
                 <a style="color: white; text-decoration: none;" href="add_progress.php">Add Progress</a>
             </button>
+
+            
+
         </div>
     </main>
     <script>
@@ -119,6 +174,97 @@ try {
             window.location.href = '../../controllers/delete_user.php';
         }
     });
+
+   
+        document.addEventListener('DOMContentLoaded', function() {
+            // Extract data from PHP
+            const statistics = <?php echo json_encode($statistics_for_chart); ?>;
+            
+            // Prepare data for Chart.js
+            const dates = statistics.map(stat => stat.date);
+            const weights = statistics.map(stat => stat.weight);
+            const calories = statistics.map(stat => stat.calorie_intake || 0);
+            
+            // Create the weight chart
+            const ctx = document.getElementById('weightChart').getContext('2d');
+            const weightChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: dates,
+                    datasets: [
+                        {
+                            label: 'Weight (kg)',
+                            data: weights,
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            fill: true,
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Date'
+                            }
+                        },
+                        y: {
+                            beginAtZero: false,
+                            title: {
+                                display: true,
+                                text: 'Kg.'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Create the calories chart
+            const ctx2 = document.getElementById('caloriesChart').getContext('2d');
+            const caloriesChart = new Chart(ctx2, {
+                type: 'line',
+                data: {
+                    labels: dates,
+                    datasets: [
+                        
+                        {
+                            label: 'Daily Calories',
+                            data: calories,
+                            borderColor: 'rgba(255, 159, 64, 1)',
+                            backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                            fill: true,
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Date'
+                            }
+                        },
+                        y: {
+                            beginAtZero: false,
+                            // min: 1000, // Minimum value for y-axis
+                            // max: 3000, // Maximum value for y-axis
+                            title: {
+                                display: true,
+                                text: 'Calories'
+                            }
+                        }
+                    }
+                }
+            });
+        });
+
+
+
+
+
     </script>
 
 

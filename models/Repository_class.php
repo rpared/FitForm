@@ -270,12 +270,12 @@ public function addProgress($user_id, $progressData) {
     }
 }
 
-    // Get User Statistics
-    public function getUserStatistics($user_id) {
-        $query = 'SELECT * FROM Statistics WHERE user_id = :user_id';
+     // Get User Statistics Ordered by date
+     public function getUserStatistics($user_id) {
+        $query = 'SELECT * FROM Statistics WHERE user_id = :user_id ORDER BY date DESC'; // ASC for ascending order
         $statement = $this->db->prepare($query);
         
-        // Bind the :user_id parameter to the actual user_id value It was not working without this!
+        // Bind the :user_id parameter to the actual user_id value
         $statement->bindValue(':user_id', $user_id, PDO::PARAM_INT);
         
         $statement->execute();
@@ -283,6 +283,38 @@ public function addProgress($user_id, $progressData) {
         $statement->closeCursor();
         
         return $results;
+    }
+    // Get User Statistics Ordered by date Limited to 5 entries for User Dashboard
+    public function getLast5UserStatistics($user_id) {
+        $query = 'SELECT * FROM Statistics WHERE user_id = :user_id ORDER BY date DESC LIMIT 5';
+        $statement = $this->db->prepare($query);
+        $statement->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $statement->execute();
+        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+        $statement->closeCursor();
+        return $results;
+    }
+    // Get User Statistics paginated (6 per page)
+    public function getUserStatisticsPaginated($user_id, $limit, $offset) {
+        $query = 'SELECT * FROM Statistics WHERE user_id = :user_id ORDER BY date DESC LIMIT :limit OFFSET :offset';
+        $statement = $this->db->prepare($query);
+        $statement->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $statement->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $statement->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $statement->execute();
+        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+        $statement->closeCursor();
+        return $results;
+    }
+    // Get User Statistics Count
+    public function getTotalStatisticsCount($user_id) {
+        $query = 'SELECT COUNT(*) FROM Statistics WHERE user_id = :user_id';
+        $statement = $this->db->prepare($query);
+        $statement->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $statement->execute();
+        $total_records = $statement->fetchColumn();
+        $statement->closeCursor();
+        return $total_records;
     }
     
     // Function to delete a statistic

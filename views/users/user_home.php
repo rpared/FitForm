@@ -42,16 +42,15 @@ try {
     $errors[] = "An error occurred: " . $e->getMessage();
 }
 
-// Fetching from the statistics table, This should fetch only the most recent 
+// Fetching from the statistics table, This will only fetch the 5 most recent 
 try {
-    $statistics = $repository->getUserStatistics($user_id); // Ensure user_id to fetch statistics
+    $statistics = $repository->getLast5UserStatistics($user_id); // Ensure user_id to fetch statistics
 } catch (PDOException $e) {
     $errors[] = "Error connecting to database: " . $e->getMessage();
 }
 
 
 ?>
-<div class></div>
 <div class="sidebar">
     <a href="progress_tracker.php">Progress Tracker</a>
     <a href="add_progress.php">Add Progress</a>
@@ -64,8 +63,6 @@ try {
 
 <div class="main-content">
 
-
-</div>
     <main>
             <?php if (isset($_GET["updated"])): ?>
                 <div class="alert alert-success" role="alert">
@@ -84,7 +81,7 @@ try {
         <div class="container mt-5">
             <div class="form-container mt-4">
                 <h2 class="text-center">Progress Tracker</h2>
-                <p>Your statistics so far:</p>
+                <p>Your most recent statistics, last 5 entries (if available):</p>
                 <table class="progress-tracker">
                     <tr>
                         <th>Date</th>
@@ -120,6 +117,8 @@ try {
             <?= $disclaimer ?>
         </div>
     </main>
+</div>
+
     <script>
     document.querySelector('#delete-account-link').addEventListener('click', function(event) {
         
@@ -130,7 +129,6 @@ try {
         }
     });
     </script>
-
 
 
 
