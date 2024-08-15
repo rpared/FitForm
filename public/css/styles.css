@@ -312,6 +312,19 @@ footer{
 .pagination .btn{
     color: #5ea23a;
 }
+.chart-range{
+    background-color: #959595;
+    color: white;
+    border: none;
+    border-radius: 4px;  
+}
+.chart-range:active{
+    border: 1px solid #5ea23a;
+}
+.active{
+    background-color: #5ea23a;
+}
+
 
 @media (max-width: 650px) {
     body{
