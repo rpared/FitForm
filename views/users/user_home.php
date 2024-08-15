@@ -82,32 +82,34 @@ try {
             <div class="form-container mt-4">
                 <h2 class="text-center">Progress Tracker</h2>
                 <p>Your most recent statistics, last 5 entries (if available):</p>
-                <table class="progress-tracker">
-                    <tr>
-                        <th>Date</th>
-                        <th>Weight</th>
-                        <th>Calories</th>
-                        <th>Protein</th>
-                        <th>Carbs</th>
-                        <th>Fats</th>
-                    </tr>
-                    <?php if (!empty($statistics)): 
-                         foreach ($statistics as $row): ?>
-                            <tr>
-                                <td><?php echo htmlspecialchars($row['date']); ?></td>
-                                <td><?php echo htmlspecialchars($row['weight']) . ' kg'; ?></td>
-                                <td><?php echo htmlspecialchars($row['calorie_intake'] ?? 'NULL'); ?></td>
-                                <td><?php echo htmlspecialchars($row['protein'] ?? 'NULL') . ' g'; ?></td>
-                                <td><?php echo htmlspecialchars($row['carbs'] ?? 'NULL') . ' g'; ?></td>
-                                <td><?php echo htmlspecialchars($row['fats'] ?? 'NULL') . ' g'; ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    <?php else: ?>
+                <div class="table-responsive">
+                    <table class="table table-striped progress-tracker">
                         <tr>
-                            <td colspan="7">No statistics found.</td>
+                            <th>Date</th>
+                            <th>Weight</th>
+                            <th>Calories</th>
+                            <th>Protein</th>
+                            <th>Carbs</th>
+                            <th>Fats</th>
                         </tr>
-                    <?php endif; ?>
-                </table>
+                        <?php if (!empty($statistics)): 
+                            foreach ($statistics as $row): ?>
+                                <tr>
+                                    <td><?php echo htmlspecialchars($row['date']); ?></td>
+                                    <td><?php echo htmlspecialchars(number_format($row['weight'], 1)) . ' kg'; ?></td>
+                                    <td><?php echo htmlspecialchars($row['calorie_intake'] ?? 'NULL'); ?></td>
+                                    <td><?php echo htmlspecialchars(number_format($row['protein'], 0) ?? 'NULL') . ' g'; ?></td>
+                                    <td><?php echo htmlspecialchars(number_format($row['carbs'], 0) ?? 'NULL') . ' g'; ?></td>
+                                    <td><?php echo htmlspecialchars(number_format($row['fats'], 0) ?? 'NULL') . ' g'; ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="7">No statistics found.</td>
+                            </tr>
+                        <?php endif; ?>
+                    </table>
+                </div>
             </div>
             <button class="btn btn-success btn-calculate">
                 <a style="color: white; text-decoration: none;" href="add_progress.php">Add Progress</a>
@@ -128,6 +130,9 @@ try {
             window.location.href = '../../controllers/delete_user.php';
         }
     });
+
+   
+
     </script>
 
 

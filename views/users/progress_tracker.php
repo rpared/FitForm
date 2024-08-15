@@ -101,55 +101,68 @@ try{
             <div class="form-container mt-4">
                 <h2 class="text-center">Progress Tracker</h2>
                 <p>Your statistics so far:</p>
-                <table class="progress-tracker">
-                    <tr>
-                        <th>Date</th>
-                        <th>Weight</th>
-                        <th>Calories</th>
-                        <th>Protein</th>
-                        <th>Carbs</th>
-                        <th>Fats</th>
-                        <th>-</th>
-                    </tr>
-                    <?php if (!empty($statistics)): ?>
-                        <?php foreach ($statistics as $row): ?>
+                <!-- Make the table responsive -->
+                <div class="table-responsive">
+                    <table class="table table-striped progress-tracker">
+                        <thead>
                             <tr>
-                                <td><?php echo htmlspecialchars($row['date']); ?></td>
-                                <td><?php echo htmlspecialchars($row['weight']) . ' kg'; ?></td>
-                                <td><?php echo htmlspecialchars($row['calorie_intake'] ?? 'NULL'); ?></td>
-                                <td><?php echo htmlspecialchars($row['protein'] ?? 'NULL') . ' g'; ?></td>
-                                <td><?php echo htmlspecialchars($row['carbs'] ?? 'NULL') . ' g'; ?></td>
-                                <td><?php echo htmlspecialchars($row['fats'] ?? 'NULL') . ' g'; ?></td>
-                                <td>
-                                <form method="post" action="../../controllers/delete_statistic.php" style="display: inline;">
-                                    <input type="hidden" name="stat_id" value="<?php echo htmlspecialchars($row['stat_id']); ?>">
-                                    <button type="submit" name="delete_statistic" class="btn btn-danger btn-sm">Delete</button>
-                                </form>
-                                </td>
+                                <th>Date</th>
+                                <th>Weight</th>
+                                <th>Calories</th>
+                                <th>Protein</th>
+                                <th>Carbs</th>
+                                <th>Fats</th>
+                                <th>-</th>
                             </tr>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <tr>
-                            <td colspan="7">No statistics found.</td>
-                        </tr>
-                    <?php endif; ?>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php if (!empty($statistics)): ?>
+                                <?php foreach ($statistics as $row): ?>
+                                    <tr>
+                                        <td><?php echo htmlspecialchars($row['date']); ?></td>
+                                        <td><?php echo htmlspecialchars(number_format($row['weight'], 1)) . ' kg'; ?></td>
+                                        <td><?php echo htmlspecialchars($row['calorie_intake'] ?? 'NULL'); ?></td>
+                                        <td><?php echo htmlspecialchars(number_format($row['protein'], 0) ?? 'NULL') . ' g'; ?></td>
+                                        <td><?php echo htmlspecialchars(number_format($row['carbs'], 0) ?? 'NULL') . ' g'; ?></td>
+                                        <td><?php echo htmlspecialchars(number_format($row['fats'], 0) ?? 'NULL') . ' g'; ?></td>
+                                        <td>
+                                            <form method="post" action="../../controllers/delete_statistic.php" style="display: inline;">
+                                                <input type="hidden" name="stat_id" value="<?php echo htmlspecialchars($row['stat_id']); ?>">
+                                                <button type="submit" name="delete_statistic" class="btn btn-danger btn-sm">Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <tr>
+                                    <td colspan="7">No statistics found.</td>
+                                </tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
                 
-                <!-- Pagination Controls -->
-                <div class="pagination">
-                    <?php if ($page > 1): ?>
-                        <a href="?page=<?php echo $page - 1; ?>" class="btn btn-secondary">Previous</a>
-                    <?php endif; ?>
-                    
-                    <?php if ($page < $total_pages): ?>
-                        <a href="?page=<?php echo $page + 1; ?>" class="btn btn-secondary">Next</a>
-                    <?php endif; ?>
-                </div>
+            
+                
+                    <!-- Pagination Controls -->
+                    <div class="pagination">
+                        <?php if ($page > 1): ?>
+                            <a href="?page=<?php echo $page - 1; ?>" class="btn">← Previous</a>
+                        <?php endif; ?>
+                        
+                        <?php if ($page < $total_pages): ?>
+                            <a href="?page=<?php echo $page + 1; ?>" class="btn">Next →</a>
+                        <?php endif; ?>
+                    </div>
             </div>
+        </div>
 
             <!-- Canvas for Chart.js -->
             <div class="form-container mt-4">
                 <h3>Weight Over Time</h3>
+                <p>Define Range (default is All Time)</p>
+                <button id="last5">Last 5 records</button>
+                <button id="lastYear">Last Year</button>
+                <button id="allTime" class="active">All Time</button>
                 <canvas id="weightChart" width="400" height="200"></canvas>
                 <br>
                 <h3>Calories Over Time</h3>
@@ -184,6 +197,10 @@ try{
             const dates = statistics.map(stat => stat.date);
             const weights = statistics.map(stat => stat.weight);
             const calories = statistics.map(stat => stat.calorie_intake || 0);
+            
+
+
+
             
             // Create the weight chart
             const ctx = document.getElementById('weightChart').getContext('2d');

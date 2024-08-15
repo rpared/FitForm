@@ -3,7 +3,7 @@ include("views/partials/header.php")
 ?>
 
     <section class="banner">
-    <h1 class="claim"> <em> Calculate yourself into fitness! </em></h1>
+    <em><h1 class="claim">  Calculate yourself into fitness! </h1></em>
 
     </section>
 
@@ -30,7 +30,34 @@ include("views/partials/header.php")
                 <a href="views/register.php" class="btn btn-info">Register</a>
             </div>
     </div>
-    
+
+    <script>
+        // Array of text messages of the banner
+        const messages = [
+            "Calculate yourself into fitness!",
+            "Track your progress!📈",
+            "Get your macros!🥦",
+            "Fitness simplified!💪"
+        ];
+
+        // Get the h1 element
+        const claimElement = document.querySelector('.claim');
+
+        // Initialize message index
+        let messageIndex = 0;
+
+        // Function to change the Claim  text
+        function changeText() {
+            // Update the text content
+            claimElement.textContent = messages[messageIndex];
+
+            // Update the message index for the next iteration
+            messageIndex = (messageIndex + 1) % messages.length;
+        }
+
+        // Set an interval to change the text every 3 seconds (3000 milliseconds)
+        setInterval(changeText, 3000);
+    </script>
 
 
     

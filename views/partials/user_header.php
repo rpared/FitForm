@@ -33,7 +33,10 @@ $first_name = $_SESSION['first_name'];
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/FitForm/public/css/styles.css">
     <link rel="shortcut icon" href="/FitForm/public/images/favicon.png " type="image/x-icon">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+
 </head>
 <body>
     <!-- Navbar  this will be included in other files-->
