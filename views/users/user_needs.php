@@ -41,7 +41,7 @@ $bmr = $calculator->calculateBMR();
 $caloriesForMaintenance = $calculator->caloriesForMaintenance();
 $caloriesForWeightLoss = $calculator->caloriesForWeightLoss();
 $caloriesForMuscleGain = $calculator->caloriesForMuscleGain();
-$disclaimer = $calculator->getDisclaimer();
+// $disclaimer = $calculator->getDisclaimer(); A customized disclaimer is needed
 
 
 // Extract profile data objective

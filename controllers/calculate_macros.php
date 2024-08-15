@@ -56,12 +56,6 @@ if (!in_array($activity, ["1.2", "1.375", "1.55", "1.725", "1.9"])) {
 if (!in_array($desired_objective, ["Maintain Weight", "Weight Loss", "Muscle Gain"])) {
     die("Invalid fitness goal provided.");
 }
-// $goalDescriptions = [
-//     'maintain' => 'Maintain weight',
-//     'lose' => 'Lose fat',
-//     'gain' => 'Gain muscle'
-// ];
-// $goalDescription = isset($goalDescriptions[$desired_objective]) ? $goalDescriptions[$desired_objective] : 'Unknown desired objective';
 
 // If all inputs are valid, instantiate the MacroCalculator class
 require_once '../models/Macro_calculator_class.php';
@@ -71,24 +65,8 @@ $calculator = new MacroCalculator($age, $gender, $height, $weight, $activity, $d
 $macros = $calculator->calculateMacros();
 $disclaimer = $calculator->getDisclaimer();
 
-// NOt needed anymore
-// Output results or pass them to a view
-// echo "<h2>Your Macros:</h2>";
-// echo "<p>Calories: " . $macros['calories'] . " kcal</p>";
-// echo "<p>Protein: " . $macros['protein'] . " g</p>";
-// echo "<p>Fats: " . $macros['fat'] . " g</p>";
-// echo "<p>Carbohydrates: " . $macros['carbs'] . " g</p>";
-// echo "<p>For your goal: ". $goalDescription. "</p>";
-
-// echo $disclaimer;
-
 include("../views/macros_result.html");
 
 
 include("../views/partials/footer.php");
-?>
-
-
-
-
 ?>

@@ -1,7 +1,7 @@
 <?php
 include("../partials/user_header.php");
 require_once '../../models/Repository_class.php';
-require_once '../../models/Calorie_calculator_class.php';
+// require_once '../../models/Calorie_calculator_class.php';
 
 // This check is needed beacuse the user_header.php starts session too
 if (session_status() == PHP_SESSION_NONE) {
@@ -80,7 +80,7 @@ try {
 
         <div class="container mt-5">
             <div class="form-container mt-4">
-                <h2 class="text-center">Progress Tracker</h2>
+                <h2 class="text-center">Recent Progress</h2>
                 <p>Your most recent statistics, last 5 entries (if available):</p>
                 <div class="table-responsive">
                     <table class="table table-striped progress-tracker">
@@ -115,8 +115,13 @@ try {
                 <a style="color: white; text-decoration: none;" href="add_progress.php">Add Progress</a>
             </button>
         </div>
-        <div class="disclaimer mt-4 text-muted" style="font-size: 0.9em;">
-            <?= $disclaimer ?>
+        <div class="container mt-5">
+            <div class="text-muted form-container mt-4 disclaimer" style="font-size: 0.9em;">
+            
+                <?php
+                include("disclaimer.html");
+                ?>
+            </div>
         </div>
     </main>
 </div>
