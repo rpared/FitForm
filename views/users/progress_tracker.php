@@ -160,9 +160,9 @@ try{
             <div class="form-container mt-4">
                 <h3>Weight Over Time</h3>
                 <p>Define Range (default is All Time)</p>
-                <button id="last5">Last 5 records</button>
-                <button id="lastYear">Last Year</button>
-                <button id="allTime" class="active">All Time</button>
+                <button class="chart-range" id="last5">Last 5 records</button>
+                <button class="chart-range" id="lastYear">Last Year</button>
+                <button class="chart-range active" id="allTime" class="active">All Time</button>
                 <canvas id="weightChart" width="400" height="200"></canvas>
                 <br>
                 <h3>Calories Over Time</h3>
@@ -194,12 +194,53 @@ try{
             const statistics = <?php echo json_encode($statistics_for_chart); ?>;
             
             // Prepare data for Chart.js
-            const dates = statistics.map(stat => stat.date);
-            const weights = statistics.map(stat => stat.weight);
-            const calories = statistics.map(stat => stat.calorie_intake || 0);
+           // Function to get filtered data based on the range
+
+           let filter = 'allTime'; //Default
+            const getFilteredData = (filter) => {
+                const now = new Date();
+                let filtered = [];
+
+                if (filter === 'last5') {
+                    // Get the last 5 entries
+                    filtered = statistics.slice(-5);
+                } else if (filter === 'lastYear') {
+                    // Get data from the last year
+                    filtered = statistics.filter(stat => {
+                        const date = new Date(stat.date);
+                        return date >= new Date(now.getFullYear() - 1, now.getMonth(), now.getDate());
+                    });
+                } else {
+                    // Default: All Time
+                    filtered = statistics;
+                }
+
+                return {
+                    labels: filtered.map(stat => stat.date),
+                    weights: filtered.map(stat => stat.weight),
+                    calories: filtered.map(stat => stat.calorie_intake || 0),
+                };
+            };
+
+             // Function to update charts
+    const updateCharts = (filter) => {
+        const filteredData = getFilteredData(filter);
+
+        // Log data to debug
+        console.log('Filtered Data:', filteredData);
+
+        if (weightChart && caloriesChart) {
+            weightChart.data.labels = filteredData.labels;
+            weightChart.data.datasets[0].data = filteredData.weights;
+            weightChart.update();
             
-
-
+            caloriesChart.data.labels = filteredData.labels;
+            caloriesChart.data.datasets[0].data = filteredData.calories;
+            caloriesChart.update();
+        } else {
+            console.error('Chart instances are not initialized.');
+        }
+    };
 
             
             // Create the weight chart
@@ -207,11 +248,11 @@ try{
             const weightChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: dates,
+                    labels: getFilteredData(filter).labels,
                     datasets: [
                         {
                             label: 'Weight (kg)',
-                            data: weights,
+                            data: getFilteredData(filter).weights,
                             borderColor: 'rgba(75, 192, 192, 1)',
                             backgroundColor: 'rgba(75, 192, 192, 0.2)',
                             fill: true,
@@ -243,12 +284,12 @@ try{
             const caloriesChart = new Chart(ctx2, {
                 type: 'line',
                 data: {
-                    labels: dates,
+                    labels: getFilteredData(filter).labels,
                     datasets: [
                         
                         {
                             label: 'Daily Calories',
-                            data: calories,
+                            data: getFilteredData(filter).calories,
                             borderColor: 'rgba(255, 159, 64, 1)',
                             backgroundColor: 'rgba(255, 159, 64, 0.2)',
                             fill: true,
@@ -276,6 +317,29 @@ try{
                     }
                 }
             });
+
+        // Button event listeners
+        document.getElementById('last5').addEventListener('click', () => {
+                updateCharts('last5');
+                document.getElementById('last5').classList.add('active');
+                document.getElementById('lastYear').classList.remove('active');
+                document.getElementById('allTime').classList.remove('active');
+            });
+
+            document.getElementById('lastYear').addEventListener('click', () => {
+                updateCharts('lastYear');
+                document.getElementById('last5').classList.remove('active');
+                document.getElementById('lastYear').classList.add('active');
+                document.getElementById('allTime').classList.remove('active');
+            });
+
+            document.getElementById('allTime').addEventListener('click', () => {
+                updateCharts('allTime');
+                document.getElementById('last5').classList.remove('active');
+                document.getElementById('lastYear').classList.remove('active');
+                document.getElementById('allTime').classList.add('active');
+            });
+
         });
 
 
