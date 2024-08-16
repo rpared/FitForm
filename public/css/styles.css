@@ -8,6 +8,9 @@ body {
     background-position: center center; /* Center the image */
     background-blend-mode: multiply;
   }
+  .male-background {
+    background-image: url("../images/bg_tredmill_male.png"); /* Male image */
+  }
 
 main{
     margin: 20px auto 0;
@@ -359,7 +362,7 @@ footer{
         padding-top: 0;
     }
 
-    .user-needs .mt-5 {
+    .user-needs .mt-5 .mt4 {
         max-width: 96%;
     }
     .w-40{
@@ -374,5 +377,8 @@ footer{
     .form-container.mt-4{
         max-width: 96%;
     }
-    
+    .container{
+        padding-right: 0;
+        padding-left: 0;
+    }
 }
