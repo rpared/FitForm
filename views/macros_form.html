@@ -3,7 +3,7 @@
     <div class="container mt-5">
         <div class="form-container mt-4">
             <h2 class="text-center">Daily Macronutrient Needs</h2>
-            <form method="post" action="../controllers/calculate_macros.php">
+            <form id="macros_form" method="post" action="../controllers/calculate_macros.php">
                 <div class="form-group">
                     <label for="age">Age:</label>
                     <select class="form-control" id="age" name="age" required>
@@ -13,8 +13,7 @@
                         <?php endfor; ?>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label>Gender:</label>
+                <div>Gender:</div>
                     <div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" id="male" name="gender" value="male" required>
@@ -26,7 +25,6 @@
                         </div>
                         <p><em>(If you define yourself as non-binary choose which body composition fits you best)</em></p>
                     </div>
-                </div>
                 <div class="form-group">
                     <label for="height">Height (cm):</label>
                     <input type="number" class="form-control" id="height" name="height" required>
@@ -64,3 +62,33 @@
         </div>
     </div>
 </main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('macros_form').addEventListener('submit', function (event) {
+            let errors = [];
+            let age = document.getElementById('age').value;
+            let height = document.getElementById('height').value;
+            let weight = document.getElementById('weight').value;
+            let activity = document.getElementById('activity').value;
+
+
+            // Validate height
+            if (isNaN(height) || height <= 40 || height >= 300) {
+                errors.push('Invalid height provided, it must be above 40 and below 700 cm.');
+            }
+
+            // Validate weight
+            if (isNaN(weight) || weight <= 20 || weight >= 700) {
+                errors.push('Invalid weight provided, it must be between 20 and 700 kg.');
+            }
+
+
+            if (errors.length > 0) {
+                event.preventDefault();
+                alert(errors.join("\n")); // Display errors in an alert
+            }
+        });
+    });
+
+</script>

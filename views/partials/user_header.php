@@ -1,6 +1,5 @@
 <?php
- require_once '../../models/Repository_class.php';
-
+//  require_once '../../models/Repository_class.php';
 // Start the session if it has not been started yet
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -15,10 +14,10 @@ $user_id = $_SESSION['user_id'];
 $first_name = $_SESSION['first_name'];
 
 // Getting gender to change background img
-$repository = new Repository();
+// $repository = new Repository();
 
-$user = $repository->getUserProfile($user_id);
-$user_gender = $user['gender'];
+// $user = $repository->getUserProfile($user_id);
+// $user_gender = $user['gender'];
 
 ?>
 
@@ -63,13 +62,6 @@ $user_gender = $user['gender'];
                 </li>
                 </li>
                 
-                <!-- <li class="nav-item tracker">
-                    <a class="nav-link" href="progress_tracker.php">Progress Tracker</a>
-                </li>
-                <li class="nav-item tracker">
-                    <a class="nav-link" href="add_progress.php">Add Progress</a>
-                </li> -->
-                
             </ul>
 
             <ul class="navbar-nav ml-auto">
@@ -83,6 +75,7 @@ $user_gender = $user['gender'];
         </div>
     </nav>
 
+<!-- 
     <script>
         const bodyBck = document.querySelector("body");
 
@@ -94,4 +87,4 @@ $user_gender = $user['gender'];
         bodyBck.classList.remove("male-background"); // Remove if male class exists
         };
 
-    </script>
+    </script> -->

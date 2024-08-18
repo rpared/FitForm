@@ -1,5 +1,5 @@
 <footer>
-    <p>FitForm Innovations - 2024</p>
+    <p><a href="https://roger.costra.ec" target="_blanc">Roger Paredes - 2024</a></p>
 </footer>
 
     <!-- Bootstrap JS and dependencies -->

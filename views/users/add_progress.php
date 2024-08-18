@@ -1,6 +1,6 @@
 <?php
 include("../partials/user_header.php");
-
+include("../../controllers/backgroundImage.php");
 
 
 $user_id = $_SESSION['user_id'];

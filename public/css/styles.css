@@ -34,10 +34,16 @@ main{
 .custom-navbar-bg{
     background-color: #fff;
 }
+a{
+    text-decoration: none;
+    color:#434343;
+}
 
 a:hover{
     position: relative;
     top: -1px;
+    text-decoration: none;
+    color: #333;
 }
 
 .nav-item{
@@ -243,6 +249,11 @@ footer{
 
 }
 
+footer a:hover{
+    color: #5ea23a;
+}
+
+
 /* Users sidebar */
 
 .sidebar {
@@ -285,6 +296,9 @@ footer{
     background-color: #ffffffc6;
     border-radius: 5px;
     padding-top: 5px;
+}
+.img-fluid{
+    float: inline-end;
 }
 
 /* Progress Tracker */
