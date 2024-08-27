@@ -1,7 +1,7 @@
 CREATE database db_fitform;
 
 USE db_fitform;
-CREATE TABLE User (
+CREATE TABLE Users (
   user_id INT NOT NULL AUTO_INCREMENT,  -- Auto-incrementing primary key
   username VARCHAR(255) NOT NULL UNIQUE, -- Username (unique)
   password VARCHAR(255) NOT NULL,  -- Password
@@ -11,7 +11,7 @@ CREATE TABLE User (
   PRIMARY KEY (user_id)  -- Define user_id as the primary key
 );
 
-CREATE TABLE Profile (
+CREATE TABLE Profiles (
   profile_id INT NOT NULL AUTO_INCREMENT,  -- Auto-incrementing primary key
   user_id INT NOT NULL,  -- Foreign key referencing User.user_id
   age INT NOT NULL, -- Age
@@ -21,7 +21,7 @@ CREATE TABLE Profile (
   activity_level ENUM('Sedentary', 'Lightly Active', 'Moderately Active', 'Very Active', 'Extremely Active'),  -- Activity level with various options
   desired_objective ENUM('Weight Loss', 'Muscle Gain', 'Maintain Weight'),  -- Desired objective with various options
   PRIMARY KEY (profile_id),  -- Define profile_id as the primary key
-  FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE  -- Foreign key constraint referencing User table, with cascade delete on User record deletion
+  FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE  -- Foreign key constraint referencing User table, with cascade delete on User record deletion
 );
 
 CREATE TABLE Statistics (
@@ -34,7 +34,7 @@ CREATE TABLE Statistics (
   carbs DECIMAL(5, 2) NULL,  			 -- Macro-nutrient: Carbs (grams), not mandatory
   fats DECIMAL(5, 2) NULL,    			 -- Macro-nutrient: Fats (grams), must be automatically calculated to fit this: calorie_intake = carbs*4 + proteins*4 + fats*9
   PRIMARY KEY (stat_id),                 -- Define stat_id as the primary key
-  FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE  -- Foreign key constraint referencing User table, with cascade delete on User record deletion
+  FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE  -- Foreign key constraint referencing User table, with cascade delete on User record deletion
 );
 
 -- Avoid any insertion operations as they are not validated, only use prepared statements!
