@@ -1,5 +1,5 @@
 <?php
-require_once 'Database_connection_class.php';
+require_once 'Database_connection_class.php'; // Get connection string with host and password from a function "getConnection" in this class
 require_once 'User_class.php';
 
 //This repository connects to the database automatically and has functions to fetch all items from User, Profile and Statistics tables 
@@ -13,7 +13,7 @@ class Repository {
 
     // Fetch all items
     public function fetchAllUsers() {
-        $query = 'SELECT * FROM users';
+        $query = 'SELECT * FROM Users';
         $statement = $this->db->prepare($query);
         $statement->execute();
         $results = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -23,7 +23,7 @@ class Repository {
 
     // Fetch all user names (just the column!!)
     public function fetchAllUserNames() {
-        $query = 'SELECT username FROM users';
+        $query = 'SELECT username FROM Users';
         $statement = $this->db->prepare($query);
         $statement->execute();
         $results = $statement->fetchAll(PDO::FETCH_COLUMN);
@@ -33,7 +33,7 @@ class Repository {
 
     // Fetch all profiles
     public function fetchAllProfiles() {
-        $query = 'SELECT * FROM profiles';
+        $query = 'SELECT * FROM Profiles';
         $statement = $this->db->prepare($query);
         $statement->execute();
         $results = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -43,7 +43,7 @@ class Repository {
 
     // Fetch all Statistics
     public function fetchAllStatistics() {
-        $query = 'SELECT * FROM statistics';
+        $query = 'SELECT * FROM Statistics';
         $statement = $this->db->prepare($query);
         $statement->execute();
         $results = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -53,7 +53,7 @@ class Repository {
 
      // Get user by user_id
  public function getUser($user_id) {
-    $query = 'SELECT * FROM users WHERE user_id = :user_id';
+    $query = 'SELECT * FROM Users WHERE user_id = :user_id';
     $statement = $this->db->prepare($query);
     $statement->bindValue(':user_id', $user_id);
     $statement->execute();
@@ -121,14 +121,22 @@ class Repository {
     }
     // Get User by credential, either username or email
     public function getUserByCredential($credential) {
-        $query = 'SELECT * FROM Users WHERE email = :credential OR username = :credential';
-        $statement = $this->db->prepare($query);
-        $statement->bindValue(':credential', $credential);
-        $statement->execute();
-        $result = $statement->fetch(PDO::FETCH_ASSOC);
-        $statement->closeCursor();
-        return $result;
+        try {
+            $query = 'SELECT * FROM Users WHERE email = :credential OR username = :credential';
+            $statement = $this->db->prepare($query);
+            $statement->bindValue(':credential', $credential);
+            $statement->execute();
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+            $statement->closeCursor();
+            return $result;
+        } catch (PDOException $e) {
+            // Log the error (never display it directly to the user in production)
+            error_log('Database Error: ' . $e->getMessage());
+            // Optionally handle the error more gracefully
+            return null; // or handle the error as needed
+        }
     }
+    
 
     // Edit User Account Information, either username or email
     public function updateUser($email, $updated_data) {
@@ -170,15 +178,22 @@ class Repository {
     // Get profile by user_id
    
     public function getUserProfile($user_id) {
-        $query = 'SELECT * FROM Profiles WHERE user_id = :user_id';
-        $statement = $this->db->prepare($query);
-        $statement->bindValue(':user_id', $user_id, PDO::PARAM_INT);
-        $statement->execute();
-        $profile = $statement->fetch(PDO::FETCH_ASSOC);
-        $statement->closeCursor();
+        try {
+            $query = 'SELECT * FROM Profiles WHERE user_id = :user_id';
+            $statement = $this->db->prepare($query);
+            $statement->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+            $statement->execute();
+            $profile = $statement->fetch(PDO::FETCH_ASSOC);
+            $statement->closeCursor();
     
-        return $profile ? $profile : null; // Return null if no profile is found this is important to redirect if it does not exist
+            return $profile ? $profile : null; // Return null if no profile is found
+        } catch (PDOException $e) {
+            // Log the error and handle it gracefully
+            error_log('Database Error: ' . $e->getMessage());
+            return null; // Return null to indicate that no profile was found or an error occurred
+        }
     }
+    
 
 
 // Create new Profile

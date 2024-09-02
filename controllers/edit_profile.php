@@ -1,5 +1,6 @@
 <?php
 // Update Profile
+ob_start(); // Start output buffering
 require_once '../models/Repository_class.php';
 include("../views/partials/header.php");
 
@@ -36,12 +37,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($gender)) {
         $errors[] = "Gender is required.";
     }
-    if (empty($height) || !is_numeric($height)) {
-        $errors[] = "Valid height is required.";
+    // Validate height (must be a float)
+    if (!is_numeric($height) || $height <= 40 || $height >= 300) {
+        $errors[] = "Invalid height provided. it must be between 40 and 300 cm";
     }
-    if (empty($weight) || !is_numeric($weight)) {
-        $errors[] = "Valid weight is required.";
+
+    // Validate weight (must be a float)
+    if (!is_numeric($weight) || $weight <= 20 || $weight >= 700) {
+        $errors[] = "Invalid weight provided, it must be between 20 and 700 kg.";
     }
+
     if (empty($activity_level)) {
         $errors[] = "Activity level is required.";
     }
@@ -83,4 +88,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 include("../views/partials/footer.php");
+ob_end_flush(); // Send the buffered output
 ?>

@@ -1,9 +1,7 @@
-
 <?php
 include("../partials/user_header.php");
 require_once '../../models/Repository_class.php';
 include("../../controllers/backgroundImage.php");
-//Here we should implement some library to get a chart or graph!!
 
 // This check is needed beacuse the user_header.php starts session too
 if (session_status() == PHP_SESSION_NONE) {

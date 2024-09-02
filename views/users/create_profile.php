@@ -33,7 +33,7 @@ $first_name = $_SESSION['first_name'];
                     <label for="age">Age:</label>
                     <select class="form-control" id="age" name="age" required>
                         <option value="">Select Age</option>
-                        <?php for ($i = 16; $i <= 80; $i++): ?>
+                        <?php for ($i = 16; $i <= 85; $i++): ?>
                             <option value="<?= $i ?>"><?= $i ?></option>
                         <?php endfor; ?>
                     </select>
@@ -56,11 +56,11 @@ $first_name = $_SESSION['first_name'];
                 </div>
                 <div class="form-group">
                     <label for="height">Height (cm):</label>
-                    <input type="number" class="form-control" id="height" name="height" required>
+                    <input type="number" class="form-control" id="height" name="height" step="any" min="40" max="300" required>
                 </div>
                 <div class="form-group">
                     <label for="weight">Weight (kg):</label>
-                    <input type="number" class="form-control" id="weight" name="weight" required>
+                    <input type="number" class="form-control" id="weight" name="weight" step="any" min="20" max="700" required>
                 </div>
 
                 <div class="form-group">

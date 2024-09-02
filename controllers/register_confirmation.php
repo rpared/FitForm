@@ -1,4 +1,5 @@
 <?php
+ob_start(); // Start output buffering
 require_once '../models/Repository_class.php';
 require_once '../models/User_class.php';
 include("../views/partials/header.php");
@@ -91,5 +92,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 
-include("../views/partials/footer.php")
+include("../views/partials/footer.php");
+ob_end_flush(); // Send the buffered output
 ?>

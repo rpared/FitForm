@@ -1,4 +1,5 @@
 <?php
+ob_start(); // Start output buffering
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
@@ -93,4 +94,5 @@ include("../views/macros_result.html");
 
 
 include("../views/partials/footer.php");
+ob_end_flush(); // Send the buffered output
 ?>
