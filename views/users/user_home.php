@@ -1,7 +1,7 @@
 <?php
 include("../partials/user_header.php");
+include("../../controllers/backgroundImage.php");
 require_once '../../models/Repository_class.php';
-require_once '../../models/Calorie_calculator_class.php';
 
 // This check is needed beacuse the user_header.php starts session too
 if (session_status() == PHP_SESSION_NONE) {
@@ -42,16 +42,15 @@ try {
     $errors[] = "An error occurred: " . $e->getMessage();
 }
 
-// Fetching from the statistics table, This should fetch only the most recent 
+// Fetching from the statistics table, This will only fetch the 5 most recent 
 try {
-    $statistics = $repository->getUserStatistics($user_id); // Ensure user_id to fetch statistics
+    $statistics = $repository->getLast5UserStatistics($user_id); // Ensure user_id to fetch statistics
 } catch (PDOException $e) {
     $errors[] = "Error connecting to database: " . $e->getMessage();
 }
 
 
 ?>
-<div class></div>
 <div class="sidebar">
     <a href="progress_tracker.php">Progress Tracker</a>
     <a href="add_progress.php">Add Progress</a>
@@ -64,8 +63,6 @@ try {
 
 <div class="main-content">
 
-
-</div>
     <main>
             <?php if (isset($_GET["updated"])): ?>
                 <div class="alert alert-success" role="alert">
@@ -83,43 +80,52 @@ try {
 
         <div class="container mt-5">
             <div class="form-container mt-4">
-                <h2 class="text-center">Progress Tracker</h2>
-                <p>Your statistics so far:</p>
-                <table class="progress-tracker">
-                    <tr>
-                        <th>Date</th>
-                        <th>Weight</th>
-                        <th>Calories</th>
-                        <th>Protein</th>
-                        <th>Carbs</th>
-                        <th>Fats</th>
-                    </tr>
-                    <?php if (!empty($statistics)): 
-                         foreach ($statistics as $row): ?>
-                            <tr>
-                                <td><?php echo htmlspecialchars($row['date']); ?></td>
-                                <td><?php echo htmlspecialchars($row['weight']) . ' kg'; ?></td>
-                                <td><?php echo htmlspecialchars($row['calorie_intake'] ?? 'NULL'); ?></td>
-                                <td><?php echo htmlspecialchars($row['protein'] ?? 'NULL') . ' g'; ?></td>
-                                <td><?php echo htmlspecialchars($row['carbs'] ?? 'NULL') . ' g'; ?></td>
-                                <td><?php echo htmlspecialchars($row['fats'] ?? 'NULL') . ' g'; ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    <?php else: ?>
+                <h2 class="text-center">Recent Progress</h2>
+                <p>Your most recent statistics, last 5 entries (if available):</p>
+                <div class="table-responsive">
+                    <table class="table table-striped progress-tracker">
                         <tr>
-                            <td colspan="7">No statistics found.</td>
+                            <th>Date</th>
+                            <th>Weight</th>
+                            <th>Calories</th>
+                            <th>Protein</th>
+                            <th>Carbs</th>
+                            <th>Fats</th>
                         </tr>
-                    <?php endif; ?>
-                </table>
+                        <?php if (!empty($statistics)): 
+                            foreach ($statistics as $row): ?>
+                                <tr>
+                                    <td><?php echo htmlspecialchars($row['date']); ?></td>
+                                    <td><?php echo htmlspecialchars(number_format($row['weight'], 1)) . ' kg'; ?></td>
+                                    <td><?php echo htmlspecialchars($row['calorie_intake'] ?? 'NULL'); ?></td>
+                                    <td><?php echo htmlspecialchars(number_format($row['protein'], 0) ?? 'NULL') . ' g'; ?></td>
+                                    <td><?php echo htmlspecialchars(number_format($row['carbs'], 0) ?? 'NULL') . ' g'; ?></td>
+                                    <td><?php echo htmlspecialchars(number_format($row['fats'], 0) ?? 'NULL') . ' g'; ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="7">No statistics found.</td>
+                            </tr>
+                        <?php endif; ?>
+                    </table>
+                </div>
             </div>
             <button class="btn btn-success btn-calculate">
                 <a style="color: white; text-decoration: none;" href="add_progress.php">Add Progress</a>
             </button>
         </div>
-        <div class="disclaimer mt-4 text-muted" style="font-size: 0.9em;">
-            <?= $disclaimer ?>
+        <div class="container mt-5">
+            <div class="text-muted form-container mt-4 disclaimer" style="font-size: 0.9em;">
+            
+                <?php
+                include("disclaimer.html");
+                ?>
+            </div>
         </div>
     </main>
+</div>
+
     <script>
     document.querySelector('#delete-account-link').addEventListener('click', function(event) {
         
@@ -129,8 +135,10 @@ try {
             window.location.href = '../../controllers/delete_user.php';
         }
     });
-    </script>
 
+   
+
+    </script>
 
 
 

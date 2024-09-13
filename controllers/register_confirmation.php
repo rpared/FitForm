@@ -1,34 +1,36 @@
 <?php
+ob_start(); // Start output buffering
 require_once '../models/Repository_class.php';
 require_once '../models/User_class.php';
 include("../views/partials/header.php");
 
 
 // Validate and process registration form data
-
+$errors = [];
 // Check if the form was submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["username"])) {
-        die("User name is required.");
+        $errors[]="User name is required.";
     }
     $username = $_POST["username"];
     // Validate email
     if (empty($_POST["email"])) {
-        die("Email is required.");
+        $errors[]="Email is required.";
     }
     $email = $_POST["email"];
     // Ensure email is valid
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        die("Invalid email format.");
+        $errors[]="Invalid email format.";
     }
 
         // Validate password
         if (empty($_POST["password"])) {
-            die("Password is required.");
+            $errors[]="Password is required.";
         }
         $password = $_POST["password"];
         // Ensure password meets requirements (at least 8 characters, including a special character)
         if (strlen($password) < 8 || !preg_match("/[!@#$%^&*()\-_=+{};:,<.>]/", $password)) {
+            $errors[]="Password does not meet requirenments";
             header('Location: ../views/register.php?wrongpassword');
         }
         // Hash the password for security before storing it
@@ -36,23 +38,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Confirm password
     if (empty($_POST["confirm_password"])) {
-        die("Please confirm your password.");
+        $errors[]="Please confirm your password.";
     }
     $confirm_password = $_POST["confirm_password"];
     // Ensure password confirmation matches
     if ($password !== $confirm_password) {
-        die("Passwords do not match. Try again please.");
+        $errors[]="Passwords do not match. Try again please.";
     }
 
     // Other fields validation
     $first_name = $_POST["first_name"];
     if (empty($first_name)) {
-        die("First Name is required.");
+        $errors[]="First Name is required.";
     }
 
     $last_name = $_POST["last_name"];
     if (empty($last_name)) {
-        die("Last Name is required.");
+        $errors[]="Last Name is required.";
     }
 
 // Validating for uniqueness
@@ -90,5 +92,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 
-include("../views/partials/footer.php")
+include("../views/partials/footer.php");
+ob_end_flush(); // Send the buffered output
 ?>

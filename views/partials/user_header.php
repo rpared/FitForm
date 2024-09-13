@@ -1,6 +1,5 @@
 <?php
-// require_once '../../models/Repository_class.php';
-
+//  require_once '../../models/Repository_class.php';
 // Start the session if it has not been started yet
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -14,12 +13,11 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 $first_name = $_SESSION['first_name'];
 
-// Getting the First name to display on top right corner
+// Getting gender to change background img
 // $repository = new Repository();
 
-// $user = $repository->getUser($user_id);
-// $user = $user[0];
-// $first_name = $user['first_name'];
+// $user = $repository->getUserProfile($user_id);
+// $user_gender = $user['gender'];
 
 ?>
 
@@ -31,8 +29,12 @@ $first_name = $_SESSION['first_name'];
     <title>Nutritional Calculator</title>
     <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/Fitform/public/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/FitForm/public/css/styles.css">
     <link rel="shortcut icon" href="/FitForm/public/images/favicon.png " type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+
 </head>
 <body>
     <!-- Navbar  this will be included in other files-->
@@ -61,13 +63,6 @@ $first_name = $_SESSION['first_name'];
                 </li>
                 </li>
                 
-                <!-- <li class="nav-item tracker">
-                    <a class="nav-link" href="progress_tracker.php">Progress Tracker</a>
-                </li>
-                <li class="nav-item tracker">
-                    <a class="nav-link" href="add_progress.php">Add Progress</a>
-                </li> -->
-                
             </ul>
 
             <ul class="navbar-nav ml-auto">
@@ -80,3 +75,17 @@ $first_name = $_SESSION['first_name'];
             </ul>
         </div>
     </nav>
+
+<!-- 
+    <script>
+        const bodyBck = document.querySelector("body");
+
+        const gender = "<?php echo $user_gender; ?>";
+
+        if (gender === "Male") {
+        bodyBck.classList.add("male-background");
+        } else {
+        bodyBck.classList.remove("male-background"); // Remove if male class exists
+        };
+
+    </script> -->

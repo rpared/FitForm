@@ -8,6 +8,9 @@ body {
     background-position: center center; /* Center the image */
     background-blend-mode: multiply;
   }
+  .male-background {
+    background-image: url("../images/bg_tredmill_male.png"); /* Male image */
+  }
 
 main{
     margin: 20px auto 0;
@@ -31,10 +34,16 @@ main{
 .custom-navbar-bg{
     background-color: #fff;
 }
+a{
+    text-decoration: none;
+    color:#434343;
+}
 
 a:hover{
     position: relative;
     top: -1px;
+    text-decoration: none;
+    color: #333;
 }
 
 .nav-item{
@@ -122,11 +131,17 @@ h2{
     justify-content: center;
     /* box-shadow: inset 0 2px 5px #00000035; */
 }
-.mt-4{
+.mt-4, .disclaimer{
     /* border: 1px solid red; */
     margin: 0 auto;
     max-width: 900px;
 
+}
+
+
+.w-40 h3{
+    margin-top: 10px;
+    text-align: center;
 }
 
 .cta-wrapper .cta-section {
@@ -234,6 +249,11 @@ footer{
 
 }
 
+footer a:hover{
+    color: #5ea23a;
+}
+
+
 /* Users sidebar */
 
 .sidebar {
@@ -277,23 +297,102 @@ footer{
     border-radius: 5px;
     padding-top: 5px;
 }
+.img-fluid{
+    float: inline-end;
+}
 
 /* Progress Tracker */
+.table td, .table th {
+    padding: .2rem;
+}
 .progress-tracker {
     border-collapse: separate;
-    border-spacing: 15px;
+    border-spacing: 10px;
     width: 100%;
 }
 .progress-tracker th, td {
     padding: 6px 10px;
     text-align: left;
+    margin-bottom: 0px;
+
 }
 .progress-tracker th {
     background-color: #f2f2f2;
+    border-collapse: collapse;
 }
 .progress-tracker tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 .progress-tracker tr:hover {
     background-color: #e2e2e2;
+}
+
+.pagination .btn{
+    color: #5ea23a;
+}
+.chart-range{
+    background-color: #959595;
+    color: white;
+    border: none;
+    border-radius: 4px;  
+}
+.chart-range:active{
+    border: 1px solid #5ea23a !important;
+}
+.active{
+    background-color: #5ea23a;
+}
+.width50 {
+    max-width: 50% ;
+}
+
+
+@media (max-width: 650px) {
+    body{
+        padding-top: 0;
+    }
+    .sidebar {
+        position: relative;
+        display: block;
+        height: fit-content;
+        width: 100%;
+        margin-top: 0;
+        padding-top: 0;
+        z-index: 1;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #5ea23a;
+    }
+    .main-content {
+        margin-top: 80px;
+        margin-left: 0px;
+        padding: 10px;
+    }
+
+    .user-needs {
+        flex-direction: column;
+        max-width: 100%;
+        margin: 0 auto; /* Center the container if needed */
+        /* border: 1px solid #5ea23a; */
+        padding-top: 0;
+    }
+
+    .user-needs .mt-5 .mt4 {
+        max-width: 96%;
+    }
+    .w-40{
+        width: 96%;
+    }
+    .calculator{
+            margin: 100px auto 0 !important;
+        }
+    .width50 {
+        max-width: 96% !important;
+    }
+    .form-container.mt-4{
+        max-width: 96%;
+    }
+    .container{
+        padding-right: 0;
+        padding-left: 0;
+    }
 }

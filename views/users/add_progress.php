@@ -1,6 +1,6 @@
 <?php
 include("../partials/user_header.php");
-
+include("../../controllers/backgroundImage.php");
 
 
 $user_id = $_SESSION['user_id'];
@@ -42,9 +42,19 @@ $first_name = $_SESSION['first_name'];
                 </div> -->
 
                 <div class="form-group">
-                    <label for="weight">*Your weight (kg):</label>
-                    <input type="number" class="form-control" id="weight" name="weight" placeholder="mandatory" required >
-                </div>
+          <label for="weight">*Weight (kg):</label>
+          <input
+            type="number"
+            class="form-control"
+            id="weight"
+            name="weight"
+            step="any"
+            min="20"
+            max="700"
+            required
+          />
+          <div class="invalid-feedback">Weight is required.</div>
+        </div>
 
                 <div class="form-group">
                     <label for="calories">Number of calories consumed:</label>

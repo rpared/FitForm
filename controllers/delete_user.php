@@ -1,4 +1,5 @@
 <?php
+ob_start(); // Start output buffering
 require_once '../models/Repository_class.php';
 include("../views/partials/header.php");
 
@@ -35,4 +36,5 @@ try {
 
 
 include("../views/partials/footer.php");
+ob_end_flush(); // Send the buffered output
 ?>

@@ -55,7 +55,7 @@ class MacroCalculator {
 
     // Function to calculate macros for maintenance
     private function macrosForMaintenance($tdee) {
-        return $this->calculateMacroDistribution($tdee, 0);
+        return $this->calculateMacroMaintennance($tdee, 0);
     }
 
     // Function to calculate macros for weight loss (20% calorie reduction)
@@ -68,12 +68,29 @@ class MacroCalculator {
         return $this->calculateMacroDistribution($tdee, 0.20);
     }
 
-    // Function to calculate macro distribution
+    // Function to calculate macro distribution For Both Gain Muscle and Loose Weight
     private function calculateMacroDistribution($tdee, $calorieAdjustment) {
         $adjustedCalories = $tdee * (1 + $calorieAdjustment);
         
         // Macro ratios: Protein: 1g per lb of body weight, Carbs: 45-65%, Fats: 20-35%
         $protein = $this->weight * 1.6; // grams
+        $fat = $adjustedCalories * 0.25 / 9; // grams
+        $carbs = ($adjustedCalories - ($protein * 4) - ($fat * 9)) / 4; // grams
+
+        return [
+            'calories' => round($adjustedCalories),
+            'protein' => round($protein),
+            'fat' => round($fat),
+            'carbs' => round($carbs)
+        ];
+    }
+
+    // Function to calculate macro distribution for Maintennace
+    private function calculateMacroMaintennance($tdee, $calorieAdjustment) {
+        $adjustedCalories = $tdee * (1 + $calorieAdjustment);
+        
+        // Macro ratios: Protein: 1g per lb of body weight, Carbs: 45-65%, Fats: 20-35%
+        $protein = $this->weight * 0.75; // grams
         $fat = $adjustedCalories * 0.25 / 9; // grams
         $carbs = ($adjustedCalories - ($protein * 4) - ($fat * 9)) / 4; // grams
 
@@ -97,7 +114,12 @@ class MacroCalculator {
                     <p>The macronutrient calculations provided by this tool are based on standard dietary guidelines and may not be suitable for everyone. The results are approximations and should not be considered as medical or nutritional advice.</p>
                     <p>Formulas and guidelines used include:</p>
                     <ul>
-                        <li><strong>Protein:</strong> 1.6 grams per kilogram of body weight</li>
+                        <li><strong>Protein:</strong> 
+                        <ul>
+                        <li>Muscle Gain and Weight Loss: 1.6 grams per kilogram of body weight</li>
+                        <li>Maintennance: 0.75 gram per kilogram of body weight</li>
+                        </ul>
+                        </li>
                         <li><strong>Fats:</strong> 25% of total caloric intake (approximately 0.25 of total calories), converted to grams (1 gram of fat = 9 kcal)</li>
                         <li><strong>Carbs:</strong> Remaining calories after accounting for protein and fat, converted to grams (1 gram of carbs = 4 kcal)</li>
                     </ul>

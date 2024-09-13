@@ -1,8 +1,7 @@
 <?php
+ob_start(); // Start output buffering
 session_start(); // Start the session
 require_once '../models/Repository_class.php';
-include("../views/partials/header.php");
-
 
 // Initialize variables
 $errors = [];
@@ -24,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         try {
             $user = $repository->getUserByCredential($login_credential);
 
-            if ($user && password_verify($password, $user['password'])) { #This is an inbuilt function to check passwords
+            if ($user && password_verify($password, $user['password'])) { // Check passwords
                 // User is authenticated
                 $_SESSION['user_id'] = $user['user_id'];
                 $_SESSION['first_name'] = $user['first_name'];
@@ -33,7 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $profile = $repository->getUserProfile($user_id);
 
                 if ($profile) {
-                    // $_SESSION['user_id'] = $profile['user_id'];
                     $_SESSION['user_id'] = $user_id;
                     // Redirect to the user's profile page
                     header('Location: ../views/users/user_home.php');
@@ -62,6 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <?php endif; ?>
 
 <?php
-
-include("../views/partials/footer.php")
+include("../views/partials/header.php");
+include("../views/partials/footer.php");
+ob_end_flush(); // Send the buffered output
 ?>

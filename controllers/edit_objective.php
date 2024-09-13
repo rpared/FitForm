@@ -1,5 +1,6 @@
 <?php
 // Update Desired Objective
+ob_start(); // Start output buffering
 require_once '../models/Repository_class.php';
 
 if (session_status() == PHP_SESSION_NONE) {
@@ -44,4 +45,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 }
+ob_end_flush(); // Send the buffered output
 ?>

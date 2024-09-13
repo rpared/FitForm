@@ -1,4 +1,5 @@
 <?php
+ob_start(); // Start output buffering
 require_once '../models/Repository_class.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -49,4 +50,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } else {
     die("Invalid request.");
 }
+ob_end_flush(); // Send the buffered output
 ?>

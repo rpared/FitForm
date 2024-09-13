@@ -6,6 +6,7 @@
     <title>Nutritional Calculator</title>
     <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/Fitform/public/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/FitForm/public/css/styles.css">
     <link rel="shortcut icon" href="/FitForm/public/images/favicon.png" type="image/x-icon">
 </head>

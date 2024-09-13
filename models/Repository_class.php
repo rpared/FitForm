@@ -1,5 +1,5 @@
 <?php
-require_once 'Database_connection_class.php';
+require_once 'Database_connection_class.php'; // Get connection string with host and password from a function "getConnection" in this class
 require_once 'User_class.php';
 
 //This repository connects to the database automatically and has functions to fetch all items from User, Profile and Statistics tables 
@@ -13,7 +13,7 @@ class Repository {
 
     // Fetch all items
     public function fetchAllUsers() {
-        $query = 'SELECT * FROM user';
+        $query = 'SELECT * FROM Users';
         $statement = $this->db->prepare($query);
         $statement->execute();
         $results = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -23,7 +23,7 @@ class Repository {
 
     // Fetch all user names (just the column!!)
     public function fetchAllUserNames() {
-        $query = 'SELECT username FROM user';
+        $query = 'SELECT username FROM Users';
         $statement = $this->db->prepare($query);
         $statement->execute();
         $results = $statement->fetchAll(PDO::FETCH_COLUMN);
@@ -33,7 +33,7 @@ class Repository {
 
     // Fetch all profiles
     public function fetchAllProfiles() {
-        $query = 'SELECT * FROM profile';
+        $query = 'SELECT * FROM Profiles';
         $statement = $this->db->prepare($query);
         $statement->execute();
         $results = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -43,7 +43,7 @@ class Repository {
 
     // Fetch all Statistics
     public function fetchAllStatistics() {
-        $query = 'SELECT * FROM statistics';
+        $query = 'SELECT * FROM Statistics';
         $statement = $this->db->prepare($query);
         $statement->execute();
         $results = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -53,7 +53,7 @@ class Repository {
 
      // Get user by user_id
  public function getUser($user_id) {
-    $query = 'SELECT * FROM user WHERE user_id = :user_id';
+    $query = 'SELECT * FROM Users WHERE user_id = :user_id';
     $statement = $this->db->prepare($query);
     $statement->bindValue(':user_id', $user_id);
     $statement->execute();
@@ -66,7 +66,7 @@ class Repository {
     // Create User
     public function createUser(User $new_user) {
     try {
-        $query = 'INSERT INTO User (username, password, email, first_name, last_name) 
+        $query = 'INSERT INTO Users (username, password, email, first_name, last_name) 
                 VALUES (:username, :password, :email, :first_name, :last_name)';
         $statement = $this->db->prepare($query);
         $statement->bindValue(':username', $new_user->getUsername());
@@ -84,7 +84,7 @@ class Repository {
 
 // Validate username uniqueness
     public function usernameExists($username) {
-        $query = 'SELECT COUNT(*) FROM User WHERE username = :username';
+        $query = 'SELECT COUNT(*) FROM Users WHERE username = :username';
         $statement = $this->db->prepare($query);
         $statement->bindValue(':username', $username);
         $statement->execute();
@@ -94,7 +94,7 @@ class Repository {
     }
 // Validate email uniqueness
     public function emailExists($email) {
-        $query = 'SELECT COUNT(*) FROM User WHERE email = :email';
+        $query = 'SELECT COUNT(*) FROM Users WHERE email = :email';
         $statement = $this->db->prepare($query);
         $statement->bindValue(':email', $email);
         $statement->execute();
@@ -107,7 +107,7 @@ class Repository {
 
     //Getting the Id with the email
     public function getUserId($email) {
-        $query = 'SELECT user_id FROM User WHERE email = :email';
+        $query = 'SELECT user_id FROM Users WHERE email = :email';
         $statement = $this->db->prepare($query);
         $statement->bindValue(':email', $email);
         $statement->execute();
@@ -121,19 +121,27 @@ class Repository {
     }
     // Get User by credential, either username or email
     public function getUserByCredential($credential) {
-        $query = 'SELECT * FROM User WHERE email = :credential OR username = :credential';
-        $statement = $this->db->prepare($query);
-        $statement->bindValue(':credential', $credential);
-        $statement->execute();
-        $result = $statement->fetch(PDO::FETCH_ASSOC);
-        $statement->closeCursor();
-        return $result;
+        try {
+            $query = 'SELECT * FROM Users WHERE email = :credential OR username = :credential';
+            $statement = $this->db->prepare($query);
+            $statement->bindValue(':credential', $credential);
+            $statement->execute();
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+            $statement->closeCursor();
+            return $result;
+        } catch (PDOException $e) {
+            // Log the error (never display it directly to the user in production)
+            error_log('Database Error: ' . $e->getMessage());
+            // Optionally handle the error more gracefully
+            return null; // or handle the error as needed
+        }
     }
+    
 
     // Edit User Account Information, either username or email
     public function updateUser($email, $updated_data) {
         try {
-            $query = 'UPDATE User SET username = :username, password = :password, first_name = :first_name, last_name = :last_name WHERE email = :email';
+            $query = 'UPDATE Users SET username = :username, password = :password, first_name = :first_name, last_name = :last_name WHERE email = :email';
             $statement = $this->db->prepare($query);
             $statement->bindValue(':username', $updated_data['username']);
             $statement->bindValue(':password', $updated_data['password']);
@@ -154,7 +162,7 @@ class Repository {
     // Deleting User Account
         public function deleteUser($user_id) {
             try {
-                $query = 'DELETE FROM User WHERE user_id = :user_id';
+                $query = 'DELETE FROM Users WHERE user_id = :user_id';
                 $statement = $this->db->prepare($query);
                 $statement->bindValue(':user_id', $user_id, PDO::PARAM_INT);
                 $statement->execute();
@@ -170,21 +178,28 @@ class Repository {
     // Get profile by user_id
    
     public function getUserProfile($user_id) {
-        $query = 'SELECT * FROM Profile WHERE user_id = :user_id';
-        $statement = $this->db->prepare($query);
-        $statement->bindValue(':user_id', $user_id, PDO::PARAM_INT);
-        $statement->execute();
-        $profile = $statement->fetch(PDO::FETCH_ASSOC);
-        $statement->closeCursor();
+        try {
+            $query = 'SELECT * FROM Profiles WHERE user_id = :user_id';
+            $statement = $this->db->prepare($query);
+            $statement->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+            $statement->execute();
+            $profile = $statement->fetch(PDO::FETCH_ASSOC);
+            $statement->closeCursor();
     
-        return $profile ? $profile : null; // Return null if no profile is found this is important to redirect if it does not exist
+            return $profile ? $profile : null; // Return null if no profile is found
+        } catch (PDOException $e) {
+            // Log the error and handle it gracefully
+            error_log('Database Error: ' . $e->getMessage());
+            return null; // Return null to indicate that no profile was found or an error occurred
+        }
     }
+    
 
 
 // Create new Profile
 public function createProfile($user_id, Profile $new_profile) {
     try {
-        $query = 'INSERT INTO Profile (user_id, age, gender, height, weight, activity_level, desired_objective) 
+        $query = 'INSERT INTO Profiles (user_id, age, gender, height, weight, activity_level, desired_objective) 
                   VALUES (:user_id, :age, :gender, :height, :weight, :activity_level, :desired_objective)';
         $statement = $this->db->prepare($query);
         $statement->bindValue(':user_id', $user_id);
@@ -206,7 +221,7 @@ public function createProfile($user_id, Profile $new_profile) {
 // Edit Profile
     public function updateProfile($user_id, $updated_data) {
         try {
-            $query = 'UPDATE Profile 
+            $query = 'UPDATE Profiles 
                     SET age = :age, gender = :gender, height = :height, weight = :weight, activity_level = :activity_level, desired_objective = :desired_objective 
                     WHERE user_id = :user_id';
             $statement = $this->db->prepare($query);
@@ -228,7 +243,7 @@ public function createProfile($user_id, Profile $new_profile) {
 // Update Desired Objective
 public function updateObjective($user_id, $desired_objective) {
     try {
-        $query = 'UPDATE Profile SET desired_objective = :desired_objective WHERE user_id = :user_id';
+        $query = 'UPDATE Profiles SET desired_objective = :desired_objective WHERE user_id = :user_id';
         $statement = $this->db->prepare($query);
         $statement->bindValue(':desired_objective', $desired_objective);
         $statement->bindValue(':user_id', $user_id, PDO::PARAM_INT);
@@ -241,7 +256,7 @@ public function updateObjective($user_id, $desired_objective) {
 }
 // Delete Profile, function for Admins only
 public function deleteProfile($user_id) {
-    $query = 'DELETE FROM Profile WHERE user_id = :user_id';
+    $query = 'DELETE FROM Profiles WHERE user_id = :user_id';
     $statement = $this->db->prepare($query);
     $statement->bindValue(':user_id', $user_id);
     $statement->execute();
@@ -270,12 +285,12 @@ public function addProgress($user_id, $progressData) {
     }
 }
 
-    // Get User Statistics
-    public function getUserStatistics($user_id) {
-        $query = 'SELECT * FROM Statistics WHERE user_id = :user_id';
+     // Get User Statistics Ordered by date
+     public function getUserStatistics($user_id) {
+        $query = 'SELECT * FROM Statistics WHERE user_id = :user_id ORDER BY date DESC'; // ASC for ascending order
         $statement = $this->db->prepare($query);
         
-        // Bind the :user_id parameter to the actual user_id value It was not working without this!
+        // Bind the :user_id parameter to the actual user_id value
         $statement->bindValue(':user_id', $user_id, PDO::PARAM_INT);
         
         $statement->execute();
@@ -283,6 +298,38 @@ public function addProgress($user_id, $progressData) {
         $statement->closeCursor();
         
         return $results;
+    }
+    // Get User Statistics Ordered by date Limited to 5 entries for User Dashboard
+    public function getLast5UserStatistics($user_id) {
+        $query = 'SELECT * FROM Statistics WHERE user_id = :user_id ORDER BY date DESC LIMIT 5';
+        $statement = $this->db->prepare($query);
+        $statement->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $statement->execute();
+        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+        $statement->closeCursor();
+        return $results;
+    }
+    // Get User Statistics paginated (6 per page)
+    public function getUserStatisticsPaginated($user_id, $limit, $offset) {
+        $query = 'SELECT * FROM Statistics WHERE user_id = :user_id ORDER BY date DESC LIMIT :limit OFFSET :offset';
+        $statement = $this->db->prepare($query);
+        $statement->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $statement->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $statement->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $statement->execute();
+        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+        $statement->closeCursor();
+        return $results;
+    }
+    // Get User Statistics Count
+    public function getTotalStatisticsCount($user_id) {
+        $query = 'SELECT COUNT(*) FROM Statistics WHERE user_id = :user_id';
+        $statement = $this->db->prepare($query);
+        $statement->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $statement->execute();
+        $total_records = $statement->fetchColumn();
+        $statement->closeCursor();
+        return $total_records;
     }
     
     // Function to delete a statistic
